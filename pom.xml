@@ -1,0 +1,164 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.jenkins-ci.plugins</groupId>
+        <artifactId>plugin</artifactId>
+        <version>1.410</version>
+    </parent>
+
+    <artifactId>dtkit</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>hpi</packaging>
+    <name>Jenkins DTKit Plugin</name>
+    <url>http://wiki.jenkins-ci.org/display/JENKINS/DTKit+Pluginr</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.6</maven.compiler.target>
+        <dtkit.frmk.version>0.14.2</dtkit.frmk.version>
+        <dtkit.default.tusar.version>0.22</dtkit.default.tusar.version>
+        <dtkit.tusar.model.version>0.18</dtkit.tusar.model.version>
+        <xerces.impl>2.6.2</xerces.impl>
+        <junit.version>4.8.2</junit.version>
+    </properties>
+
+    <licenses>
+        <license>
+            <name>MIT license</name>
+            <comments>All source code is under the MIT license.</comments>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>gbois</id>
+            <name>Gregory Boissinot</name>
+            <email>gregory.boissinot@gmail.com</email>
+            <timezone>+1</timezone>
+            <roles>
+                <role>Project owner</role>
+                <role>Project developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.thalesgroup.dtkit</groupId>
+            <artifactId>dtkit-metrics-model</artifactId>
+            <version>${dtkit.frmk.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.thalesgroup.dtkit</groupId>
+            <artifactId>dtkit-metrics-hudson-api</artifactId>
+            <version>${dtkit.frmk.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.thalesgroup.dtkit</groupId>
+            <artifactId>dtkit-metrics-util</artifactId>
+            <version>${dtkit.frmk.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>net.sourceforge.saxon</groupId>
+                    <artifactId>saxon</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.thalesgroup.dtkit</groupId>
+            <artifactId>dtkit-tusar-model</artifactId>
+            <version>${dtkit.tusar.model.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.thalesgroup.dtkit</groupId>
+            <artifactId>dtkit-default-tusar-jenkins</artifactId>
+            <version>${dtkit.default.tusar.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.xml.bind</groupId>
+                    <artifactId>jaxb-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.xml.bind</groupId>
+                    <artifactId>jaxb-impl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.thalesgroup.dtkit</groupId>
+                    <artifactId>dtkit-processor</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <scm>
+        <connection>scm:git:git://github.com/jenkinsci/dtkit-plugin.git</connection>
+        <developerConnection>scm:git:git@github.com:jenkinsci/dtkit-plugin.git</developerConnection>
+    </scm>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>net.sourceforge.saxon</groupId>
+                                    <artifactId>saxon</artifactId>
+                                    <version>9.1.0.8</version>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/dtkit/WEB-INF/lib
+                                    </outputDirectory>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>net.sourceforge.saxon</groupId>
+                                    <artifactId>saxon</artifactId>
+                                    <version>9.1.0.8</version>
+                                    <classifier>s9api</classifier>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/dtkit/WEB-INF/lib
+                                    </outputDirectory>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>net.sourceforge.saxon</groupId>
+                                    <artifactId>saxon</artifactId>
+                                    <version>9.1.0.8</version>
+                                    <classifier>dom</classifier>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/dtkit/WEB-INF/lib
+                                    </outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>
