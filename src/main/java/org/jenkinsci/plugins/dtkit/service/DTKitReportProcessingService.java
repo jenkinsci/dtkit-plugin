@@ -39,11 +39,6 @@ public class DTKitReportProcessingService implements Serializable {
 
     /**
      * Gets all reports from the given parent path and the pattern.
-     *
-     * @param DTKitBuilderToolInfo the tusar Tool tool wrapper
-     * @param parentPath           parent
-     * @param pattern              pattern to search files
-     * @return an array of strings
      */
     public List<String> findReports(DTKitBuilderToolInfo DTKitBuilderToolInfo, File parentPath, String pattern) {
 

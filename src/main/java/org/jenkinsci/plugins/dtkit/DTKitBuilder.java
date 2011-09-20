@@ -73,6 +73,23 @@ public class DTKitBuilder extends Builder {
         return measures;
     }
 
+
+    public void setTests(TestType[] tests) {
+        this.tests = tests;
+    }
+
+    public void setCoverages(CoverageType[] coverages) {
+        this.coverages = coverages;
+    }
+
+    public void setViolations(ViolationsType[] violations) {
+        this.violations = violations;
+    }
+
+    public void setMeasures(MeasureType[] measures) {
+        this.measures = measures;
+    }
+
     public BuildStepMonitor getRequiredMonitorService() {
         return BuildStepMonitor.NONE;
     }
@@ -242,7 +259,7 @@ public class DTKitBuilder extends Builder {
 
         @Override
         public String getDisplayName() {
-            return "DTKit Steps";
+            return "DTKit Conversion";
         }
 
         public DescriptorExtensionList<TestType, TestTypeDescriptor<?>> getListTestDescriptors() {

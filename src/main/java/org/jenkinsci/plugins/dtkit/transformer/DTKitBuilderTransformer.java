@@ -71,9 +71,9 @@ public class DTKitBuilderTransformer implements FilePath.FileCallable<Boolean>, 
                     return false;
                 }
 
-                File tusarTargetFile = DTKitBuilderConversionService.convert(DTKitBuilderToolInfo, curFile, ws, DTKitBuilderToolInfo.getOutputDir());
+                File targetFile = DTKitBuilderConversionService.convert(DTKitBuilderToolInfo, curFile, ws, DTKitBuilderToolInfo.getOutputDir());
 
-                boolean result = DTKitBuilderValidationService.validateOutputFile(DTKitBuilderToolInfo, curFile, tusarTargetFile);
+                boolean result = DTKitBuilderValidationService.validateOutputFile(DTKitBuilderToolInfo, curFile, targetFile);
                 if (!result) {
                     return false;
                 }

@@ -37,7 +37,7 @@ public class DTKitBuilderValidationService implements Serializable {
     /**
      * Validates an input file
      *
-     * @param DTKitBuilderToolInfo the tusar tool tool info wrapper
+     * @param DTKitBuilderToolInfo the tool tool info wrapper
      * @param inputFile            the current input file
      * @return true if the validation is success, false otherwise
      * @throws org.jenkinsci.plugins.dtkit.exception.DTKitBuilderException
@@ -68,7 +68,7 @@ public class DTKitBuilderValidationService implements Serializable {
     /**
      * Validates the converted file against a JUnit format
      *
-     * @param DTKitBuilderToolInfo the tusar tool info wrapper object
+     * @param DTKitBuilderToolInfo the tool info wrapper object
      * @param inputFile            the input metric from the conversion
      * @param junitTargetFile      the converted input file
      * @return true if the validation is success, false otherwise

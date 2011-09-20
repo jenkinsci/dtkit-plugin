@@ -28,7 +28,7 @@ public class DTKitBuilderConversionService implements Serializable {
     /**
      * Prepares the conversion by adding specific behavior for the CustomType
      *
-     * @param DTKitBuilderToolInfo the tusarToolInfo info wrapper object
+     * @param DTKitBuilderToolInfo the info wrapper object
      * @param workspace            the current workspace
      * @throws org.jenkinsci.plugins.dtkit.exception.DTKitBuilderException
      *          an XUnitException is thrown if there is a preparation error.
@@ -49,7 +49,7 @@ public class DTKitBuilderConversionService implements Serializable {
     /**
      * Converts the inputFile into a JUnit output file
      *
-     * @param DTKitBuilderToolInfo the tusar tool info wrapper object
+     * @param DTKitBuilderToolInfo the tool info wrapper object
      * @param inputFile            the input file to be converted
      * @param workspace            the workspace
      * @param outputDirectory      the output parent directory that contains the TUSAR output file
