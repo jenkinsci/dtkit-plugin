@@ -8,11 +8,11 @@
         <version>1.410</version>
     </parent>
 
-    <artifactId>dtkit</artifactId>
+    <artifactId>dtkit-plugin</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>hpi</packaging>
-    <name>Jenkins DTKit Plugin</name>
-    <url>http://wiki.jenkins-ci.org/display/JENKINS/DTKit+Pluginr</url>
+    <name>DTKit Jenkins Plugin</name>
+    <url>http://wiki.jenkins-ci.org/display/JENKINS/DTKit+Plugin</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
