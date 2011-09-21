@@ -236,7 +236,7 @@ public class DTKitBuilder extends Builder {
     }
 
 
-    @Extension(ordinal = 1)
+    @Extension
     @SuppressWarnings("unused")
     public static final class TusarNotifierDescriptor extends BuildStepDescriptor<Builder> {
 
