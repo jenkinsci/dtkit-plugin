@@ -19,61 +19,61 @@ import java.util.List;
  */
 public class DTKitBuilderTransformer implements FilePath.FileCallable<Boolean>, Serializable {
 
-    private DTKitReportProcessingService DTKitReportProcessingService;
+    private DTKitReportProcessingService dtkitReportProcessingService;
 
-    private DTKitBuilderConversionService DTKitBuilderConversionService;
+    private DTKitBuilderConversionService dtkitBuilderConversionService;
 
-    private DTKitBuilderValidationService DTKitBuilderValidationService;
+    private DTKitBuilderValidationService dtkitBuilderValidationService;
 
-    private DTKitBuilderToolInfo DTKitBuilderToolInfo;
+    private DTKitBuilderToolInfo dtkitBuilderToolInfo;
 
-    private DTKitBuilderLog DTKitBuilderLog;
+    private DTKitBuilderLog dtkitBuilderLog;
 
     @Inject
     @SuppressWarnings("unused")
     void loadService(
-            DTKitReportProcessingService DTKitReportProcessingService,
-            DTKitBuilderConversionService DTKitBuilderConversionService,
-            DTKitBuilderValidationService DTKitBuilderValidationService,
-            DTKitBuilderToolInfo DTKitBuilderToolInfo,
-            DTKitBuilderLog DTKitBuilderLog) {
-        this.DTKitReportProcessingService = DTKitReportProcessingService;
-        this.DTKitBuilderConversionService = DTKitBuilderConversionService;
-        this.DTKitBuilderValidationService = DTKitBuilderValidationService;
-        this.DTKitBuilderToolInfo = DTKitBuilderToolInfo;
-        this.DTKitBuilderLog = DTKitBuilderLog;
+            DTKitReportProcessingService dtkitReportProcessingService,
+            DTKitBuilderConversionService dtkitBuilderConversionService,
+            DTKitBuilderValidationService dtkitBuilderValidationService,
+            DTKitBuilderToolInfo dtkitBuilderToolInfo,
+            DTKitBuilderLog dtkitBuilderLog) {
+        this.dtkitReportProcessingService = dtkitReportProcessingService;
+        this.dtkitBuilderConversionService = dtkitBuilderConversionService;
+        this.dtkitBuilderValidationService = dtkitBuilderValidationService;
+        this.dtkitBuilderToolInfo = dtkitBuilderToolInfo;
+        this.dtkitBuilderLog = dtkitBuilderLog;
     }
 
     public Boolean invoke(File ws, hudson.remoting.VirtualChannel channel) throws IOException, InterruptedException {
 
         try {
 
-            List<String> resultFiles = DTKitReportProcessingService.findReports(DTKitBuilderToolInfo, ws, DTKitBuilderToolInfo.getExpandedPattern());
+            List<String> resultFiles = dtkitReportProcessingService.findReports(dtkitBuilderToolInfo, ws, dtkitBuilderToolInfo.getExpandedPattern());
             if (resultFiles.size() == 0) {
                 return false;
             }
 
-            if (!DTKitReportProcessingService.checkIfFindsFilesNewFiles(DTKitBuilderToolInfo, resultFiles, ws)) {
+            if (!dtkitReportProcessingService.checkIfFindsFilesNewFiles(dtkitBuilderToolInfo, resultFiles, ws)) {
                 return false;
             }
 
             for (String curFileName : resultFiles) {
 
-                File curFile = DTKitReportProcessingService.getCurrentReport(ws, curFileName);
-                if (!DTKitBuilderValidationService.checkFileIsNotEmpty(curFile)) {
+                File curFile = dtkitReportProcessingService.getCurrentReport(ws, curFileName);
+                if (!dtkitBuilderValidationService.checkFileIsNotEmpty(curFile)) {
                     String msg = "The file '" + curFile.getPath() + "' is empty. This file has been ignored.";
-                    DTKitBuilderLog.warning(msg);
+                    dtkitBuilderLog.warning(msg);
                     return false;
                 }
 
-                if (!DTKitBuilderValidationService.validateInputFile(DTKitBuilderToolInfo, curFile)) {
-                    DTKitBuilderLog.warning("The file '" + curFile + "' has been ignored.");
+                if (!dtkitBuilderValidationService.validateInputFile(dtkitBuilderToolInfo, curFile)) {
+                    dtkitBuilderLog.warning("The file '" + curFile + "' has been ignored.");
                     return false;
                 }
 
-                File targetFile = DTKitBuilderConversionService.convert(DTKitBuilderToolInfo, curFile, ws, DTKitBuilderToolInfo.getOutputDir());
+                File targetFile = dtkitBuilderConversionService.convert(dtkitBuilderToolInfo, curFile, ws, dtkitBuilderToolInfo.getOutputDir());
 
-                boolean result = DTKitBuilderValidationService.validateOutputFile(DTKitBuilderToolInfo, curFile, targetFile);
+                boolean result = dtkitBuilderValidationService.validateOutputFile(dtkitBuilderToolInfo, curFile, targetFile);
                 if (!result) {
                     return false;
                 }

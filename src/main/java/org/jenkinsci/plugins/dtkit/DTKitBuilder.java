@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class DTKitBuilder extends Builder {
 
-    private transient final String generatedFolder = "generatedTUSARFiles";
+    private transient final String generatedFolder = "generatedDTKITFiles";
     private transient final String generatedTests = generatedFolder + "/TESTS";
     private transient final String generatedCoverage = generatedFolder + "/COVERAGE";
     private transient final String generatedMeasures = generatedFolder + "/MEASURES";
@@ -113,7 +113,7 @@ public class DTKitBuilder extends Builder {
         final DTKitBuilderToolInfo DTKitBuilderToolInfo = new DTKitBuilderToolInfo(metricsType, new File(outputFileParent.toURI()), newExpandedPattern, build.getTimeInMillis());
 
         // Archiving tool reports into JUnit files
-        DTKitBuilderTransformer DTKitBuilderTransformer = Guice.createInjector(new AbstractModule() {
+        DTKitBuilderTransformer dtkitBuilderTransformer = Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
                 bind(BuildListener.class).toInstance(listener);
@@ -125,7 +125,7 @@ public class DTKitBuilder extends Builder {
             }
         }).getInstance(DTKitBuilderTransformer.class);
 
-        boolean resultTransformation = build.getWorkspace().act(DTKitBuilderTransformer);
+        boolean resultTransformation = build.getModuleRoot().act(dtkitBuilderTransformer);
         if (!resultTransformation) {
             build.setResult(Result.FAILURE);
             DTKitBuilderLog.info("Stopping recording.");
