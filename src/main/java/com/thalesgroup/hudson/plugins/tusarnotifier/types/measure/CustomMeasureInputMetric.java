@@ -23,7 +23,6 @@
 package com.thalesgroup.hudson.plugins.tusarnotifier.types.measure;
 
 
-import com.sun.xml.internal.ws.server.UnsupportedMediaException;
 import com.thalesgroup.dtkit.metrics.model.InputMetricXSL;
 import com.thalesgroup.hudson.plugins.tusarnotifier.types.CustomInputMetric;
 
@@ -35,6 +34,6 @@ import java.io.File;
 public class CustomMeasureInputMetric extends InputMetricXSL implements CustomInputMetric {
 
     public void setCustomXSLFile(File customXSLFile) {
-        throw new UnsupportedMediaException("The object has been migrated.");
+        throw new UnsupportedOperationException("The object has been migrated.");
     }
 }

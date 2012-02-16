@@ -22,7 +22,6 @@
 
 package com.thalesgroup.hudson.plugins.tusarnotifier.types.coverage;
 
-import com.sun.xml.internal.ws.server.UnsupportedMediaException;
 import com.thalesgroup.dtkit.metrics.model.InputMetricOther;
 import com.thalesgroup.dtkit.util.converter.ConversionException;
 import com.thalesgroup.dtkit.util.validator.ValidationException;
@@ -37,16 +36,16 @@ public class TusarCoverageInputMetric extends InputMetricOther {
 
     @Override
     public void convert(File inputFile, File outFile, Map<String, Object> params) throws ConversionException {
-        throw new UnsupportedMediaException("The object has been migrated.");
+        throw new UnsupportedOperationException("The object has been migrated.");
     }
 
     @Override
     public boolean validateInputFile(File inputXMLFile) throws ValidationException {
-        throw new UnsupportedMediaException("The object has been migrated.");
+        throw new UnsupportedOperationException("The object has been migrated.");
     }
 
     @Override
     public boolean validateOutputFile(File inputXMLFile) throws ValidationException {
-        throw new UnsupportedMediaException("The object has been migrated.");
+        throw new UnsupportedOperationException("The object has been migrated.");
     }
 }
