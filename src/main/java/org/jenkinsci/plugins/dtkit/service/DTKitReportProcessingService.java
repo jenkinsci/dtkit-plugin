@@ -1,7 +1,7 @@
 package org.jenkinsci.plugins.dtkit.service;
 
 import com.google.inject.Inject;
-import com.thalesgroup.dtkit.metrics.hudson.api.type.*;
+import com.thalesgroup.dtkit.metrics.hudson.api.type.MetricsType;
 import hudson.Util;
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.types.FileSet;
@@ -40,24 +40,9 @@ public class DTKitReportProcessingService implements Serializable {
     /**
      * Gets all reports from the given parent path and the pattern.
      */
-    public List<String> findReports(DTKitBuilderToolInfo DTKitBuilderToolInfo, File parentPath, String pattern) {
+    public List<String> findReports(DTKitBuilderToolInfo dTKitBuilderToolInfo, File parentPath, String pattern) {
 
-        MetricsType metricsType = DTKitBuilderToolInfo.getMetricsType();
-        String toolName = null;
-        if (metricsType instanceof TestType) {
-            toolName = ((TestType) metricsType).getDescriptor().getDisplayName();
-        }
-        if (metricsType instanceof CoverageType) {
-            toolName = ((CoverageType) metricsType).getDescriptor().getDisplayName();
-        }
-        if (metricsType instanceof ViolationsType) {
-            toolName = ((ViolationsType) metricsType).getDescriptor().getDisplayName();
-        }
-        if (metricsType instanceof MeasureType) {
-            toolName = ((MeasureType) metricsType).getDescriptor().getDisplayName();
-        }
-
-
+        String toolName = dTKitBuilderToolInfo.getToolName();
         FileSet fs = Util.createFileSet(parentPath, pattern);
         DirectoryScanner ds = fs.getDirectoryScanner();
         String[] xunitFiles = ds.getIncludedFiles();

@@ -37,16 +37,16 @@ public class DTKitBuilderValidationService implements Serializable {
     /**
      * Validates an input file
      *
-     * @param DTKitBuilderToolInfo the tool tool info wrapper
+     * @param dTKitBuilderToolInfo the tool tool info wrapper
      * @param inputFile            the current input file
      * @return true if the validation is success, false otherwise
      * @throws org.jenkinsci.plugins.dtkit.exception.DTKitBuilderException
      *          org.jenkinsci.plugins.dtkit.exception.TusarNotifierException
      *          an XUnitException when there are validation exceptions
      */
-    public boolean validateInputFile(DTKitBuilderToolInfo DTKitBuilderToolInfo, File inputFile) throws DTKitBuilderException {
+    public boolean validateInputFile(DTKitBuilderToolInfo dTKitBuilderToolInfo, File inputFile) throws DTKitBuilderException {
 
-        InputMetric inputMetric = DTKitBuilderToolInfo.getMetricsType().getInputMetric();
+        InputMetric inputMetric = dTKitBuilderToolInfo.getInputMetric();
 
         //Validate the input file (nom empty)
         try {

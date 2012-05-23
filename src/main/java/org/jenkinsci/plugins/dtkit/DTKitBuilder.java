@@ -110,14 +110,14 @@ public class DTKitBuilder extends Builder {
         newExpandedPattern = Util.replaceMacro(newExpandedPattern, build.getEnvironment(listener));
 
         //Build a new build info
-        final DTKitBuilderToolInfo DTKitBuilderToolInfo = new DTKitBuilderToolInfo(metricsType, new File(outputFileParent.toURI()), newExpandedPattern, build.getTimeInMillis());
+        final DTKitBuilderToolInfo dTKitBuilderToolInfo = new DTKitBuilderToolInfo(metricsType, new File(outputFileParent.toURI()), newExpandedPattern, build.getTimeInMillis());
 
         // Archiving tool reports into JUnit files
         DTKitBuilderTransformer dtkitBuilderTransformer = Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
                 bind(BuildListener.class).toInstance(listener);
-                bind(DTKitBuilderToolInfo.class).toInstance(DTKitBuilderToolInfo);
+                bind(DTKitBuilderToolInfo.class).toInstance(dTKitBuilderToolInfo);
                 bind(DTKitBuilderValidationService.class).in(Singleton.class);
                 bind(DTKitBuilderConversionService.class).in(Singleton.class);
                 bind(DTKitBuilderLog.class).in(Singleton.class);
