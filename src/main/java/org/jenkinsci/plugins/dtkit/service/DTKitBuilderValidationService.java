@@ -68,15 +68,15 @@ public class DTKitBuilderValidationService implements Serializable {
     /**
      * Validates the converted file against a JUnit format
      *
-     * @param DTKitBuilderToolInfo the tool info wrapper object
+     * @param dtKitBuilderToolInfo the tool info wrapper object
      * @param inputFile            the input metric from the conversion
      * @param junitTargetFile      the converted input file
      * @return true if the validation is success, false otherwise
      * @throws org.jenkinsci.plugins.dtkit.exception.DTKitBuilderException
      *          org.jenkinsci.plugins.dtkit.exception.TusarNotifierException
      */
-    public boolean validateOutputFile(DTKitBuilderToolInfo DTKitBuilderToolInfo, File inputFile, File junitTargetFile) throws DTKitBuilderException {
-        InputMetric inputMetric = DTKitBuilderToolInfo.getMetricsType().getInputMetric();
+    public boolean validateOutputFile(DTKitBuilderToolInfo dtKitBuilderToolInfo, File inputFile, File junitTargetFile) throws DTKitBuilderException {
+        InputMetric inputMetric = dtKitBuilderToolInfo.getInputMetric();
 
         try {
             boolean validateOutput = inputMetric.validateOutputFile(junitTargetFile);

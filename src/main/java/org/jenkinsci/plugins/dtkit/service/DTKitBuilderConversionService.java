@@ -49,7 +49,7 @@ public class DTKitBuilderConversionService implements Serializable {
     /**
      * Converts the inputFile into a JUnit output file
      *
-     * @param DTKitBuilderToolInfo the tool info wrapper object
+     * @param dtKitBuilderToolInfo the tool info wrapper object
      * @param inputFile            the input file to be converted
      * @param workspace            the workspace
      * @param outputDirectory      the output parent directory that contains the TUSAR output file
@@ -58,14 +58,14 @@ public class DTKitBuilderConversionService implements Serializable {
      *          an XUnitException is thrown if there is a conversion error.
      */
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public File convert(DTKitBuilderToolInfo DTKitBuilderToolInfo, File inputFile, File workspace, File outputDirectory) throws DTKitBuilderException {
+    public File convert(DTKitBuilderToolInfo dtKitBuilderToolInfo, File inputFile, File workspace, File outputDirectory) throws DTKitBuilderException {
 
         //Prepare the conversion when there is a custom type
-        prepareConversion(DTKitBuilderToolInfo, workspace);
+        prepareConversion(dtKitBuilderToolInfo, workspace);
 
-        MetricsType metricsType = DTKitBuilderToolInfo.getMetricsType();
+        MetricsType metricsType = dtKitBuilderToolInfo.getMetricsType();
 
-        InputMetric inputMetric = metricsType.getInputMetric();
+        InputMetric inputMetric = dtKitBuilderToolInfo.getInputMetric();
 
         final String TUSAR_FILE_POSTFIX = ".xml";
         final String TUSAR_FILE_PREFIX = "TUSAR-";
@@ -75,7 +75,7 @@ public class DTKitBuilderConversionService implements Serializable {
         try {
             //Set the XSL for custom type
             if (metricsType instanceof CustomType) {
-                ((CustomInputMetric) inputMetric).setCustomXSLFile(DTKitBuilderToolInfo.getCusXSLFile());
+                ((CustomInputMetric) inputMetric).setCustomXSLFile(dtKitBuilderToolInfo.getCusXSLFile());
             }
             inputMetric.convert(inputFile, junitTargetFile);
         } catch (ConversionException ce) {
