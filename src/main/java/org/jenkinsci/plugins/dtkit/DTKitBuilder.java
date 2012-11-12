@@ -97,27 +97,20 @@ public class DTKitBuilder extends Builder {
 
     private boolean processInputMetricType(final AbstractBuild<?, ?> build, final BuildListener listener, MetricsType metricsType, FilePath outputFileParent) throws IOException, InterruptedException {
 
-        final DTKitBuilderLog DTKitBuilderLog = Guice.createInjector(new AbstractModule() {
-            @Override
-            protected void configure() {
-                bind(BuildListener.class).toInstance(listener);
-            }
-        }).getInstance(DTKitBuilderLog.class);
-
         //Retrieves the pattern
         String newExpandedPattern = metricsType.getPattern();
         newExpandedPattern = newExpandedPattern.replaceAll("[\t\r\n]+", " ");
         newExpandedPattern = Util.replaceMacro(newExpandedPattern, build.getEnvironment(listener));
 
         //Build a new build info
-        final DTKitBuilderToolInfo dTKitBuilderToolInfo = new DTKitBuilderToolInfo(metricsType, new File(outputFileParent.toURI()), newExpandedPattern, build.getTimeInMillis());
+        final DTKitBuilderToolInfo toolInfo = new DTKitBuilderToolInfo(metricsType, new File(outputFileParent.toURI()), newExpandedPattern, build.getTimeInMillis());
 
         // Archiving tool reports into JUnit files
         DTKitBuilderTransformer dtkitBuilderTransformer = Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
                 bind(BuildListener.class).toInstance(listener);
-                bind(DTKitBuilderToolInfo.class).toInstance(dTKitBuilderToolInfo);
+                bind(DTKitBuilderToolInfo.class).toInstance(toolInfo);
                 bind(DTKitBuilderValidationService.class).in(Singleton.class);
                 bind(DTKitBuilderConversionService.class).in(Singleton.class);
                 bind(DTKitBuilderLog.class).in(Singleton.class);
@@ -125,14 +118,7 @@ public class DTKitBuilder extends Builder {
             }
         }).getInstance(DTKitBuilderTransformer.class);
 
-        boolean resultTransformation = build.getModuleRoot().act(dtkitBuilderTransformer);
-        if (!resultTransformation) {
-            build.setResult(Result.FAILURE);
-            DTKitBuilderLog.info("Stopping recording.");
-            return false;
-        }
-
-        return true;
+        return build.getModuleRoot().act(dtkitBuilderTransformer);
     }
 
     @Override
@@ -142,14 +128,14 @@ public class DTKitBuilder extends Builder {
         try {
             final StringBuffer sb = new StringBuffer();
 
-            final DTKitBuilderLog dtkitbuilderlog = Guice.createInjector(new AbstractModule() {
+            final DTKitBuilderLog log = Guice.createInjector(new AbstractModule() {
                 @Override
                 protected void configure() {
                     bind(BuildListener.class).toInstance(listener);
                 }
             }).getInstance(DTKitBuilderLog.class);
-            dtkitbuilderlog.info("Starting converting.");
 
+            log.info("Starting converting.");
 
             DTKitReportProcessingService processingService = Guice.createInjector(new AbstractModule() {
                 @Override
@@ -166,7 +152,7 @@ public class DTKitBuilder extends Builder {
                 FilePath outputFileParent = new FilePath(build.getWorkspace(), generatedTests);
                 outputFileParent.mkdirs();
                 for (TestType testsType : tests) {
-                    dtkitbuilderlog.info("Processing " + testsType.getDescriptor().getDisplayName());
+                    log.info("Processing " + testsType.getDescriptor().getDisplayName());
                     if (!processingService.isEmptyPattern(testsType.getPattern())) {
                         boolean result = processInputMetricType(build, listener, testsType, outputFileParent);
                         if (result) {
@@ -180,7 +166,7 @@ public class DTKitBuilder extends Builder {
                 FilePath outputFileParent = new FilePath(build.getWorkspace(), generatedCoverage);
                 outputFileParent.mkdirs();
                 for (CoverageType coverageType : coverages) {
-                    dtkitbuilderlog.info("Processing " + coverageType.getDescriptor().getDisplayName());
+                    log.info("Processing " + coverageType.getDescriptor().getDisplayName());
                     if (!processingService.isEmptyPattern(coverageType.getPattern())) {
                         boolean result = processInputMetricType(build, listener, coverageType, outputFileParent);
                         if (result) {
@@ -194,7 +180,7 @@ public class DTKitBuilder extends Builder {
                 FilePath outputFileParent = new FilePath(build.getWorkspace(), generatedViolations);
                 outputFileParent.mkdirs();
                 for (ViolationsType violationsType : violations) {
-                    dtkitbuilderlog.info("Processing " + violationsType.getDescriptor().getDisplayName());
+                    log.info("Processing " + violationsType.getDescriptor().getDisplayName());
                     if (!processingService.isEmptyPattern(violationsType.getPattern())) {
                         boolean result = processInputMetricType(build, listener, violationsType, outputFileParent);
                         if (result) {
@@ -208,7 +194,7 @@ public class DTKitBuilder extends Builder {
                 FilePath outputFileParent = new FilePath(build.getWorkspace(), generatedMeasures);
                 outputFileParent.mkdirs();
                 for (MeasureType measureType : measures) {
-                    dtkitbuilderlog.info("Processing " + measureType.getDescriptor().getDisplayName());
+                    log.info("Processing " + measureType.getDescriptor().getDisplayName());
                     if (!processingService.isEmptyPattern(measureType.getPattern())) {
                         boolean result = processInputMetricType(build, listener, measureType, outputFileParent);
                         if (result) {
@@ -227,6 +213,12 @@ public class DTKitBuilder extends Builder {
             parameterValues.add(new StringParameterValue("sonar.language", "tusar"));
             parameterValues.add(new StringParameterValue("sonar.tusar.reportsPaths", sb.toString()));
             build.addAction(new ParametersAction(parameterValues));
+
+            if (!isInvoked){
+                log.error("Any files are correct. Fail build.");
+                build.setResult(Result.FAILURE);
+                return false;
+            }
 
             return true;
         } catch (Throwable e) {
