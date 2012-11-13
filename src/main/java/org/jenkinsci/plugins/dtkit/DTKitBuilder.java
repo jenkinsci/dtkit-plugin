@@ -94,33 +94,6 @@ public class DTKitBuilder extends Builder {
         return BuildStepMonitor.NONE;
     }
 
-
-    private boolean processInputMetricType(final AbstractBuild<?, ?> build, final BuildListener listener, MetricsType metricsType, FilePath outputFileParent) throws IOException, InterruptedException {
-
-        //Retrieves the pattern
-        String newExpandedPattern = metricsType.getPattern();
-        newExpandedPattern = newExpandedPattern.replaceAll("[\t\r\n]+", " ");
-        newExpandedPattern = Util.replaceMacro(newExpandedPattern, build.getEnvironment(listener));
-
-        //Build a new build info
-        final DTKitBuilderToolInfo toolInfo = new DTKitBuilderToolInfo(metricsType, new File(outputFileParent.toURI()), newExpandedPattern, build.getTimeInMillis());
-
-        // Archiving tool reports into JUnit files
-        DTKitBuilderTransformer dtkitBuilderTransformer = Guice.createInjector(new AbstractModule() {
-            @Override
-            protected void configure() {
-                bind(BuildListener.class).toInstance(listener);
-                bind(DTKitBuilderToolInfo.class).toInstance(toolInfo);
-                bind(DTKitBuilderValidationService.class).in(Singleton.class);
-                bind(DTKitBuilderConversionService.class).in(Singleton.class);
-                bind(DTKitBuilderLog.class).in(Singleton.class);
-                bind(DTKitReportProcessingService.class).in(Singleton.class);
-            }
-        }).getInstance(DTKitBuilderTransformer.class);
-
-        return build.getModuleRoot().act(dtkitBuilderTransformer);
-    }
-
     @Override
     public boolean perform(final AbstractBuild<?, ?> build, Launcher launcher, final BuildListener listener)
             throws InterruptedException, IOException {
@@ -214,7 +187,7 @@ public class DTKitBuilder extends Builder {
             parameterValues.add(new StringParameterValue("sonar.tusar.reportsPaths", sb.toString()));
             build.addAction(new ParametersAction(parameterValues));
 
-            if (!isInvoked){
+            if (!isInvoked) {
                 log.error("Any files are correct. Fail build.");
                 build.setResult(Result.FAILURE);
                 return false;
@@ -227,6 +200,31 @@ public class DTKitBuilder extends Builder {
         }
     }
 
+    private boolean processInputMetricType(final AbstractBuild<?, ?> build, final BuildListener listener, MetricsType metricsType, FilePath outputFileParent) throws IOException, InterruptedException {
+
+        //Retrieves the pattern
+        String newExpandedPattern = metricsType.getPattern();
+        newExpandedPattern = newExpandedPattern.replaceAll("[\t\r\n]+", " ");
+        newExpandedPattern = Util.replaceMacro(newExpandedPattern, build.getEnvironment(listener));
+
+        //Build a new build info
+        final DTKitBuilderToolInfo toolInfo = new DTKitBuilderToolInfo(metricsType, new File(outputFileParent.toURI()), newExpandedPattern, build.getTimeInMillis());
+
+        // Archiving tool reports into JUnit files
+        DTKitBuilderTransformer dtkitBuilderTransformer = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+                bind(BuildListener.class).toInstance(listener);
+                bind(DTKitBuilderToolInfo.class).toInstance(toolInfo);
+                bind(DTKitBuilderValidationService.class).in(Singleton.class);
+                bind(DTKitBuilderConversionService.class).in(Singleton.class);
+                bind(DTKitBuilderLog.class).in(Singleton.class);
+                bind(DTKitReportProcessingService.class).in(Singleton.class);
+            }
+        }).getInstance(DTKitBuilderTransformer.class);
+
+        return build.getModuleRoot().act(dtkitBuilderTransformer);
+    }
 
     @Extension
     @SuppressWarnings("unused")
