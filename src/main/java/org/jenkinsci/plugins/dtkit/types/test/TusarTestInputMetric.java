@@ -3,12 +3,14 @@ package org.jenkinsci.plugins.dtkit.types.test;
 import com.thalesgroup.dtkit.metrics.model.InputMetricOther;
 import com.thalesgroup.dtkit.metrics.model.InputType;
 import com.thalesgroup.dtkit.util.converter.ConversionException;
+import com.thalesgroup.dtkit.util.validator.ValidationError;
 import com.thalesgroup.dtkit.util.validator.ValidationException;
 import org.apache.commons.io.FileUtils;
 import org.jenkinsci.plugins.dtkit.service.DTKitBuilderFormatValidation;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -60,7 +62,9 @@ public class TusarTestInputMetric extends InputMetricOther {
      */
     @Override
     public boolean validateInputFile(File inputXMLFile) throws ValidationException {
-        return new DTKitBuilderFormatValidation().isTusarFormat(inputXMLFile);
+        List<ValidationError> errors = new DTKitBuilderFormatValidation().isTusarFormat(inputXMLFile);
+        setInputValidationErrors(errors);
+        return errors.isEmpty();
     }
 
     /*
@@ -70,7 +74,9 @@ public class TusarTestInputMetric extends InputMetricOther {
      */
     @Override
     public boolean validateOutputFile(File inputXMLFile) throws ValidationException {
-        return validateInputFile(inputXMLFile);
+        List<ValidationError> errors = new DTKitBuilderFormatValidation().isTusarFormat(inputXMLFile);
+        setOutputValidationErrors(errors);
+        return errors.isEmpty();
     }
 
 }
