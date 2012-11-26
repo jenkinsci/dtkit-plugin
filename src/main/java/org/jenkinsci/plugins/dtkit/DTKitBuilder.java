@@ -223,7 +223,7 @@ public class DTKitBuilder extends Builder {
             }
         }).getInstance(DTKitBuilderTransformer.class);
 
-        return build.getModuleRoot().act(dtkitBuilderTransformer);
+        return build.getWorkspace().act(dtkitBuilderTransformer);
     }
 
     @Extension
