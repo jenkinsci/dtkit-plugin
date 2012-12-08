@@ -74,7 +74,7 @@ public class DTKitReportProcessingService implements Serializable {
 
         MetricsType metricsType = DTKitBuilderToolInfo.getMetricsType();
 
-        if (metricsType.isFaildedIfNotNew()) {
+        if (metricsType.isFailIfNotNew()) {
             ArrayList<File> oldResults = new ArrayList<File>();
             for (String value : files) {
                 File reportFile = new File(workspace, value);
@@ -95,7 +95,7 @@ public class DTKitReportProcessingService implements Serializable {
                     return false;
                 }
 
-                String msg = "Test reports were found but not all of them are new. Did all the tests run?\n";
+                String msg = "Reports were found but not all of them are new. Did all the tests run?\n";
                 for (File f : oldResults) {
                     msg += String.format("  * %s is %s old\n", f, Util.getTimeSpanString(DTKitBuilderToolInfo.getBuildTime() - f.lastModified()));
                 }
