@@ -1,19 +1,30 @@
 package org.jenkinsci.plugins.dtkit;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Singleton;
-import com.thalesgroup.dtkit.metrics.hudson.api.descriptor.CoverageTypeDescriptor;
-import com.thalesgroup.dtkit.metrics.hudson.api.descriptor.MeasureTypeDescriptor;
-import com.thalesgroup.dtkit.metrics.hudson.api.descriptor.TestTypeDescriptor;
-import com.thalesgroup.dtkit.metrics.hudson.api.descriptor.ViolationsTypeDescriptor;
-import com.thalesgroup.dtkit.metrics.hudson.api.type.*;
-import hudson.*;
-import hudson.model.*;
+import hudson.DescriptorExtensionList;
+import hudson.Extension;
+import hudson.FilePath;
+import hudson.Launcher;
+import hudson.Util;
+import hudson.model.Action;
+import hudson.model.BuildListener;
+import hudson.model.ParameterValue;
+import hudson.model.Result;
+import hudson.model.AbstractBuild;
+import hudson.model.AbstractProject;
+import hudson.model.Descriptor;
+import hudson.model.ParametersAction;
+import hudson.model.StringParameterValue;
 import hudson.tasks.BuildStepDescriptor;
 import hudson.tasks.BuildStepMonitor;
 import hudson.tasks.Builder;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sf.json.JSONObject;
+
 import org.jenkinsci.plugins.dtkit.service.DTKitBuilderConversionService;
 import org.jenkinsci.plugins.dtkit.service.DTKitBuilderLog;
 import org.jenkinsci.plugins.dtkit.service.DTKitBuilderValidationService;
@@ -22,22 +33,32 @@ import org.jenkinsci.plugins.dtkit.transformer.DTKitBuilderToolInfo;
 import org.jenkinsci.plugins.dtkit.transformer.DTKitBuilderTransformer;
 import org.kohsuke.stapler.StaplerRequest;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
+import com.google.inject.Singleton;
+import com.thalesgroup.dtkit.metrics.hudson.api.descriptor.CoverageTypeDescriptor;
+import com.thalesgroup.dtkit.metrics.hudson.api.descriptor.MeasureTypeDescriptor;
+import com.thalesgroup.dtkit.metrics.hudson.api.descriptor.TestTypeDescriptor;
+import com.thalesgroup.dtkit.metrics.hudson.api.descriptor.ViolationsTypeDescriptor;
+import com.thalesgroup.dtkit.metrics.hudson.api.type.CoverageType;
+import com.thalesgroup.dtkit.metrics.hudson.api.type.MeasureType;
+import com.thalesgroup.dtkit.metrics.hudson.api.type.MetricsType;
+import com.thalesgroup.dtkit.metrics.hudson.api.type.TestType;
+import com.thalesgroup.dtkit.metrics.hudson.api.type.ViolationsType;
 
 /**
  * @author Gregory Boissinot
  */
 public class DTKitBuilder extends Builder {
 
-    private transient final String generatedFolder = "generatedDTKITFiles";
-    private transient final String generatedTests = generatedFolder + "/TESTS";
-    private transient final String generatedCoverage = generatedFolder + "/COVERAGE";
-    private transient final String generatedMeasures = generatedFolder + "/MEASURES";
-    private transient final String generatedViolations = generatedFolder + "/VIOLATIONS";
+    private final String tusarRootFolder;
+    private final String generatedFolder;
+    private final String generatedTests;
+    private final String generatedCoverage;
+    private final String generatedMeasures;
+    private final String generatedViolations;
 
+    
     private TestType[] tests;
     private CoverageType[] coverages;
     private ViolationsType[] violations;
@@ -46,11 +67,36 @@ public class DTKitBuilder extends Builder {
     public DTKitBuilder(TestType[] tests,
                         CoverageType[] coverages,
                         ViolationsType[] violations,
-                        MeasureType[] measures) {
+                        MeasureType[] measures,
+                        String tusarRootFolder
+                        ){
         this.tests = tests;
         this.coverages = coverages;
         this.violations = violations;
         this.measures = measures;
+        
+        this.tusarRootFolder = tusarRootFolder;
+        
+        if (this.tusarRootFolder.equals("")){
+            this.generatedFolder = "generatedDTKITFiles";
+        } else {
+            if (new File(tusarRootFolder).isAbsolute()){
+                this.generatedFolder = "generatedDTKITFiles";
+            } else {
+                this.generatedFolder = tusarRootFolder;
+            }
+        }
+        this.generatedTests = generatedFolder + "/TESTS";
+        this.generatedCoverage = generatedFolder + "/COVERAGE";
+        this.generatedMeasures = generatedFolder + "/MEASURES";
+        this.generatedViolations = generatedFolder + "/VIOLATIONS";
+    }
+    
+    public String getTusarRootFolder(){
+        if (this.tusarRootFolder == null){
+            return "";
+        }
+        return tusarRootFolder;
     }
 
     @SuppressWarnings("unused")
@@ -89,6 +135,34 @@ public class DTKitBuilder extends Builder {
     public void setMeasures(MeasureType[] measures) {
         this.measures = measures;
     }
+    
+    private String getGeneratedTests() {
+    	if (this.tusarRootFolder == null){
+    		return generatedFolder + "/TESTS";
+        }
+		return generatedTests;
+	}
+
+	private String getGeneratedCoverage() {
+		if (this.tusarRootFolder == null){
+    		return generatedFolder + "/COVERAGE";
+        }
+		return generatedCoverage;
+	}
+
+	private String getGeneratedMeasures() {
+		if (this.tusarRootFolder == null){
+    		return generatedFolder + "/MEASURES";
+        }
+		return generatedMeasures;
+	}
+
+	private String getGeneratedViolations() {
+		if (this.tusarRootFolder == null){
+    		return generatedFolder + "/VIOLATIONS";
+        }
+		return generatedViolations;
+	}
 
     public BuildStepMonitor getRequiredMonitorService() {
         return BuildStepMonitor.NONE;
@@ -99,6 +173,7 @@ public class DTKitBuilder extends Builder {
             throws InterruptedException, IOException {
 
         try {
+        
             final StringBuffer sb = new StringBuffer();
 
             final DTKitBuilderLog log = Guice.createInjector(new AbstractModule() {
@@ -119,10 +194,15 @@ public class DTKitBuilder extends Builder {
 
 
             boolean isInvoked = false;
+            
+            if (new File(getTusarRootFolder()).isAbsolute()){
+                DTKitBuilderLog.error("Tusar root folder musn't be absolute, result are generated in default folder: " +
+                        "[workspace]/generatedDTKITFiles.");
+            }
 
             // Apply conversion for all tests tools
             if (tests.length != 0) {
-                FilePath outputFileParent = new FilePath(build.getWorkspace(), generatedTests);
+                FilePath outputFileParent = new FilePath(build.getWorkspace(), getGeneratedTests());
                 outputFileParent.mkdirs();
                 for (TestType testsType : tests) {
                     log.info("Processing " + testsType.getDescriptor().getDisplayName());
@@ -133,10 +213,10 @@ public class DTKitBuilder extends Builder {
                         }
                     }
                 }
-                sb.append(";").append(generatedTests);
+                sb.append(";").append(getGeneratedTests());
             }
             if (coverages.length != 0) {
-                FilePath outputFileParent = new FilePath(build.getWorkspace(), generatedCoverage);
+                FilePath outputFileParent = new FilePath(build.getWorkspace(), getGeneratedCoverage());
                 outputFileParent.mkdirs();
                 for (CoverageType coverageType : coverages) {
                     log.info("Processing " + coverageType.getDescriptor().getDisplayName());
@@ -147,10 +227,10 @@ public class DTKitBuilder extends Builder {
                         }
                     }
                 }
-                sb.append(";").append(generatedCoverage);
+                sb.append(";").append(getGeneratedCoverage());
             }
             if (violations.length != 0) {
-                FilePath outputFileParent = new FilePath(build.getWorkspace(), generatedViolations);
+                FilePath outputFileParent = new FilePath(build.getWorkspace(), getGeneratedViolations());
                 outputFileParent.mkdirs();
                 for (ViolationsType violationsType : violations) {
                     log.info("Processing " + violationsType.getDescriptor().getDisplayName());
@@ -161,10 +241,10 @@ public class DTKitBuilder extends Builder {
                         }
                     }
                 }
-                sb.append(";").append(generatedViolations);
+                sb.append(";").append(getGeneratedViolations());
             }
             if (measures.length != 0) {
-                FilePath outputFileParent = new FilePath(build.getWorkspace(), generatedMeasures);
+                FilePath outputFileParent = new FilePath(build.getWorkspace(), getGeneratedMeasures());
                 outputFileParent.mkdirs();
                 for (MeasureType measureType : measures) {
                     log.info("Processing " + measureType.getDescriptor().getDisplayName());
@@ -175,18 +255,36 @@ public class DTKitBuilder extends Builder {
                         }
                     }
                 }
-                sb.append(";").append(generatedMeasures);
+                sb.append(";").append(getGeneratedMeasures());
             }
 
 
             // Remove the first character
             sb.delete(0, 1);
 
-            List<ParameterValue> parameterValues = new ArrayList<ParameterValue>();
-            parameterValues.add(new StringParameterValue("sonar.language", "tusar"));
-            parameterValues.add(new StringParameterValue("sonar.tusar.reportsPaths", sb.toString()));
-            build.addAction(new ParametersAction(parameterValues));
+            boolean isPathPresent = false;
+            
+            for( Action a : build.getActions()){
+                if(a instanceof ParametersAction){
+                    StringParameterValue parameter = (StringParameterValue) ((ParametersAction) a).getParameter("sonar.tusar.reportsPaths");
+                    if(null != parameter){
+                        build.getActions().remove(a);
+                        List<ParameterValue> parameterValues = new ArrayList<ParameterValue>();
+                        parameterValues.add(new StringParameterValue("sonar.language", "tusar"));
+                        parameterValues.add(new StringParameterValue("sonar.tusar.reportsPaths", parameter.value + ";" + sb.toString()));
+                        build.addAction(new ParametersAction(parameterValues));
+                        isPathPresent = true;
+                    }
+                }
+            }
 
+            if(false == isPathPresent) {
+                List<ParameterValue> parameterValues = new ArrayList<ParameterValue>();
+                parameterValues.add(new StringParameterValue("sonar.language", "tusar"));
+                parameterValues.add(new StringParameterValue("sonar.tusar.reportsPaths", sb.toString()));
+                build.addAction(new ParametersAction(parameterValues));
+            }
+            
             if (!isInvoked) {
                 log.error("Any files are correct. Fail build.");
                 build.setResult(Result.FAILURE);
@@ -280,7 +378,8 @@ public class DTKitBuilder extends Builder {
             return new DTKitBuilder(tests.toArray(new TestType[tests.size()]),
                     coverages.toArray(new CoverageType[coverages.size()]),
                     violations.toArray(new ViolationsType[violations.size()]),
-                    measures.toArray(new MeasureType[measures.size()])
+                    measures.toArray(new MeasureType[measures.size()]),
+                            formData.getString("tusarRootFolder")
             );
         }
     }
