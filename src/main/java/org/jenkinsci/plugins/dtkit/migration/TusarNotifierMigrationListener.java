@@ -47,7 +47,9 @@ public class TusarNotifierMigrationListener extends ItemListener {
                                     tusarNotifier.getTests(),
                                     tusarNotifier.getCoverages(),
                                     tusarNotifier.getViolations(),
-                                    tusarNotifier.getMeasures());
+                                    tusarNotifier.getMeasures(),
+                                    ""
+                                    );
 
                             DescribableList<Builder, Descriptor<Builder>> newBuilders
                                     = new DescribableList<Builder, Descriptor<Builder>>(item, builders);
