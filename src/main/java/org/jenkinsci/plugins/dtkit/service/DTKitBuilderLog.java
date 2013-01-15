@@ -10,12 +10,12 @@ import java.io.Serializable;
  */
 public class DTKitBuilderLog implements Serializable {
 
-    private static BuildListener buildListener;
+    private BuildListener buildListener;
 
     @Inject
     @SuppressWarnings("unused")
     void set(BuildListener buildListener) {
-        DTKitBuilderLog.buildListener = buildListener;
+        this.buildListener = buildListener;
     }
 
     /**
@@ -33,7 +33,7 @@ public class DTKitBuilderLog implements Serializable {
      *
      * @param message The message to be outputted
      */
-    public static void error(String message) {
+    public void error(String message) {
         buildListener.getLogger().println("[DTKit] [ERROR] - " + message);
     }
 
