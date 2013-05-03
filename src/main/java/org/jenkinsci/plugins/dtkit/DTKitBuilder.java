@@ -106,6 +106,7 @@ public class DTKitBuilder extends Builder {
         this.generatedCoverage = generatedFolder + DEFAULT_COVERAGE_PATH;
         this.generatedMeasures = generatedFolder + DEFAULT_MEASURES_PATH;
         this.generatedViolations = generatedFolder + DEFAULT_VIOLATIONS_PATH;
+        
     }
     
     public String getRootFolder() {

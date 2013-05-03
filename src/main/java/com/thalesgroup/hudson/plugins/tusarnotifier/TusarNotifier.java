@@ -53,13 +53,13 @@ public class TusarNotifier extends Notifier {
     private transient ViolationsType[] violations;
     private transient MeasureType[] measures;
 
-    private transient Boolean selectedForSuppress;
+    private transient boolean selectedForSuppress;
 
     public TusarNotifier(TestType[] tests,
                          CoverageType[] coverages,
                          ViolationsType[] violations,
                          MeasureType[] measures,
-                         Boolean selectForSuppress) {
+                         boolean selectForSuppress) {
         this.tests = tests;
         this.coverages = coverages;
         this.violations = violations;
@@ -92,9 +92,6 @@ public class TusarNotifier extends Notifier {
         return BuildStepMonitor.NONE;
     }
 
-    public Boolean isSelectedForSuppress() {
-        return this.selectedForSuppress;
-    }
 
     @Extension(ordinal = 1)
     @SuppressWarnings("unused")
@@ -144,8 +141,7 @@ public class TusarNotifier extends Notifier {
             return new TusarNotifier(tests.toArray(new TestType[tests.size()]),
                     coverages.toArray(new CoverageType[coverages.size()]),
                     violations.toArray(new ViolationsType[violations.size()]),
-                    measures.toArray(new MeasureType[measures.size()]),
-                    formData.getBoolean("selectedForSuppress")
+                    measures.toArray(new MeasureType[measures.size()])
             );
         }
     }
