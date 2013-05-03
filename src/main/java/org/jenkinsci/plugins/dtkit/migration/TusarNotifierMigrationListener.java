@@ -49,7 +49,7 @@ public class TusarNotifierMigrationListener extends ItemListener {
                                     tusarNotifier.getViolations(),
                                     tusarNotifier.getMeasures(),
                                     "",
-                                    tusarNotifier.isSelectedForSuppress()
+                                    false
                                     );
 
                             DescribableList<Builder, Descriptor<Builder>> newBuilders

@@ -40,6 +40,6 @@ public class TusarMeasureType extends MeasureType {
     }
 
     public Object readResolve() {
-        return new org.jenkinsci.plugins.dtkit.types.measure.TusarMeasureType(this.getPattern(), this.isFaildedIfNotNew(), this.isDeleteOutputFiles());
+        return new org.jenkinsci.plugins.dtkit.types.measure.TusarMeasureType(this.getPattern(), this.isFailIfNotNew(), this.isDeleteOutputFiles());
     }
 }

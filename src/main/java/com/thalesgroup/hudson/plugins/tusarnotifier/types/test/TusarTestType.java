@@ -40,6 +40,6 @@ public class TusarTestType extends TestType {
     }
 
     public Object readResolve() {
-        return new org.jenkinsci.plugins.dtkit.types.test.TusarTestType(this.getPattern(), this.isFaildedIfNotNew(), this.isDeleteOutputFiles());
+        return new org.jenkinsci.plugins.dtkit.types.test.TusarTestType(this.getPattern(), this.isFailIfNotNew(), this.isDeleteOutputFiles());
     }
 }

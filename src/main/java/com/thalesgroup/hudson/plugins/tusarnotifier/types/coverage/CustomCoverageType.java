@@ -50,6 +50,6 @@ public class CustomCoverageType extends CoverageType implements CustomType {
     }
 
     public Object readResolve() {
-        return new org.jenkinsci.plugins.dtkit.types.coverage.CustomCoverageType(this.getPattern(), this.getCustomXSL(), this.isFaildedIfNotNew(), this.isDeleteOutputFiles());
+        return new org.jenkinsci.plugins.dtkit.types.coverage.CustomCoverageType(this.getPattern(), this.getCustomXSL(), this.isFailIfNotNew(), this.isDeleteOutputFiles());
     }
 }

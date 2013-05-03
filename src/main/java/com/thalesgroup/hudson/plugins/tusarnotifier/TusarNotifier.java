@@ -141,7 +141,7 @@ public class TusarNotifier extends Notifier {
             return new TusarNotifier(tests.toArray(new TestType[tests.size()]),
                     coverages.toArray(new CoverageType[coverages.size()]),
                     violations.toArray(new ViolationsType[violations.size()]),
-                    measures.toArray(new MeasureType[measures.size()])
+                    measures.toArray(new MeasureType[measures.size()]), false
             );
         }
     }

@@ -41,7 +41,7 @@ public class TusarViolationType extends ViolationsType {
     }
 
     public Object readResolve() {
-        return new org.jenkinsci.plugins.dtkit.types.violation.TusarViolationType(this.getPattern(), this.isFaildedIfNotNew(), this.isDeleteOutputFiles());
+        return new org.jenkinsci.plugins.dtkit.types.violation.TusarViolationType(this.getPattern(), this.isFailIfNotNew(), this.isDeleteOutputFiles());
     }
 
 }

@@ -50,6 +50,6 @@ public class CustomTestType extends TestType implements CustomType {
     }
 
     public Object readResolve() {
-        return new org.jenkinsci.plugins.dtkit.types.test.CustomTestType(this.getPattern(), this.getCustomXSL(), this.isFaildedIfNotNew(), this.isDeleteOutputFiles());
+        return new org.jenkinsci.plugins.dtkit.types.test.CustomTestType(this.getPattern(), this.getCustomXSL(), this.isFailIfNotNew(), this.isDeleteOutputFiles());
     }
 }

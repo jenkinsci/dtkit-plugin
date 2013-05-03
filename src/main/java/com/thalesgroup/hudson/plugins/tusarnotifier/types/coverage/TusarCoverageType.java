@@ -42,7 +42,7 @@ public class TusarCoverageType extends CoverageType {
     }
 
     public Object readResolve() {
-        return new org.jenkinsci.plugins.dtkit.types.coverage.TusarCoverageType(this.getPattern(), this.isFaildedIfNotNew(), this.isDeleteOutputFiles());
+        return new org.jenkinsci.plugins.dtkit.types.coverage.TusarCoverageType(this.getPattern(), this.isFailIfNotNew(), this.isDeleteOutputFiles());
     }
 
 }

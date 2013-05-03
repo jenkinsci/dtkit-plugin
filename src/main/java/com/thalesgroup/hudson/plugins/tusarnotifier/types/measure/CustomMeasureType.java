@@ -50,6 +50,6 @@ public class CustomMeasureType extends MeasureType implements CustomType {
     }
 
     public Object readResolve() {
-        return new org.jenkinsci.plugins.dtkit.types.measure.CustomMeasureType(this.getPattern(), this.getCustomXSL(), this.isFaildedIfNotNew(), this.isDeleteOutputFiles());
+        return new org.jenkinsci.plugins.dtkit.types.measure.CustomMeasureType(this.getPattern(), this.getCustomXSL(), this.isFailIfNotNew(), this.isDeleteOutputFiles());
     }
 }
