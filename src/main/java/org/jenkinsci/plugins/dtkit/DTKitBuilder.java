@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 import net.sf.json.JSONObject;
 
@@ -70,17 +71,25 @@ public class DTKitBuilder extends Builder {
     private static final String DEFAULT_MEASURES_PATH = "/MEASURES";
     private static final String DEFAULT_VIOLATIONS_PATH = "/VIOLATIONS";
 
+    /**
+     * Represents checkbox value in plugin configuration page
+     */
+    private boolean selectedForSuppress;
+
     public DTKitBuilder(TestType[] tests,
                         CoverageType[] coverages,
                         ViolationsType[] violations,
                         MeasureType[] measures,
-                        String rootFolderPath
+                        String rootFolderPath,
+                        boolean selectedForSuppress
                         ){
         this.tests = tests;
         this.coverages = coverages;
         this.violations = violations;
         this.measures = measures;
-        
+
+        this.setSelectedForSuppress(selectedForSuppress);
+
         if (rootFolderPath == null || rootFolderPath.trim().isEmpty()){
         	this.rootFolder = DEFAULT_ROOT_PATH;
             this.generatedFolder = DEFAULT_ROOT_PATH;
@@ -124,6 +133,13 @@ public class DTKitBuilder extends Builder {
         return measures;
     }
 
+    /**
+     * Used with DTKit plugin configuration.
+     * When selectedForSuppress, this option allows to suppress old build files prior to execute a new build
+     */
+    public boolean isSelectedForSuppress() {
+        return selectedForSuppress;
+    }
 
     public void setTests(TestType[] tests) {
         this.tests = tests;
@@ -140,7 +156,11 @@ public class DTKitBuilder extends Builder {
     public void setMeasures(MeasureType[] measures) {
         this.measures = measures;
     }
-    
+
+    public void setSelectedForSuppress(boolean selectedForSuppress) {
+        this.selectedForSuppress = selectedForSuppress;
+    }
+
     public BuildStepMonitor getRequiredMonitorService() {
         return BuildStepMonitor.NONE;
     }
@@ -155,8 +175,8 @@ public class DTKitBuilder extends Builder {
             String generatedTests = this.generatedTests == null?(DEFAULT_ROOT_PATH+DEFAULT_TEST_PATH):this.generatedTests;
             String generatedCoverage = this.generatedCoverage == null?(DEFAULT_ROOT_PATH+DEFAULT_COVERAGE_PATH):this.generatedCoverage;
             String generatedMeasures = this.generatedMeasures == null?(DEFAULT_ROOT_PATH+DEFAULT_MEASURES_PATH):this.generatedMeasures;
-            String generatedViolations = this.generatedViolations == null?(DEFAULT_ROOT_PATH+DEFAULT_VIOLATIONS_PATH):this.generatedViolations; 
-        
+            String generatedViolations = this.generatedViolations == null?(DEFAULT_ROOT_PATH+DEFAULT_VIOLATIONS_PATH):this.generatedViolations;
+
             final StringBuffer sb = new StringBuffer();
 
             final DTKitBuilderLog log = Guice.createInjector(new AbstractModule() {
@@ -165,6 +185,16 @@ public class DTKitBuilder extends Builder {
                     bind(BuildListener.class).toInstance(listener);
                 }
             }).getInstance(DTKitBuilderLog.class);
+
+            // cause of eventual presence of last build generated files
+            // check for cleaning old build generated files
+            if (this.isSelectedForSuppress()) {
+                log.info("Checking for old build generated files...");
+                // and suppress them
+                if (this.cleanOldBuildFiles(new FilePath(build.getWorkspace(), rootFolder))) {
+                    log.info("Old build generated files suppressed...");
+                }
+            }
 
             log.info("Starting converting.");
 
@@ -317,6 +347,36 @@ public class DTKitBuilder extends Builder {
         return build.getWorkspace().act(dtkitBuilderTransformer);
     }
 
+
+    /**
+     * This method performs a recursive walk into output directory tree to delete all old build files if present
+     * @param rootFile    the root folder that contains all output sub-folders and files
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    private boolean cleanOldBuildFiles(FilePath rootFile) throws IOException, InterruptedException {
+        boolean resultValue = false;
+        List<FilePath> dirList = rootFile.list();
+        ListIterator dirListIterator = dirList.listIterator();
+        FilePath tempDir;
+
+        // check for root folder presence to avoid error if first time build...
+        if (rootFile.exists()) {
+            // check for output folders
+            if (!dirList.isEmpty()) {
+                while (dirListIterator.hasNext()) {
+                    tempDir =  (FilePath) dirListIterator.next();
+                    tempDir.deleteRecursive();
+                    if (!resultValue && !tempDir.exists()) {
+                        resultValue = true;
+                    }
+                }
+            }
+        }
+        //
+        return resultValue;
+    }
+
     @Extension
     @SuppressWarnings("unused")
     public static final class TusarNotifierDescriptor extends BuildStepDescriptor<Builder> {
@@ -372,7 +432,8 @@ public class DTKitBuilder extends Builder {
                     coverages.toArray(new CoverageType[coverages.size()]),
                     violations.toArray(new ViolationsType[violations.size()]),
                     measures.toArray(new MeasureType[measures.size()]),
-                            formData.getString("rootFolder")
+                    formData.getString("rootFolder"),
+                    formData.getBoolean("selectedForSuppress")
             );
         }
     }

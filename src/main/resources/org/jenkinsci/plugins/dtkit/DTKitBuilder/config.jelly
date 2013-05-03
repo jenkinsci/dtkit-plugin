@@ -1,10 +1,15 @@
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
   <f:block>
-  
+
   	  <f:entry title="Generated reports root folder" field="rootFolder" help="/plugin/dtkit/help-root-folder.html">
     	<f:textbox />
   	  </f:entry>
-  
+
+  	  <f:entry title="" help="/plugin/dtkit/help-del-old-build-files.html">
+  	   <f:checkbox name="selectedForSuppress" field="selectedForSuppress" checked="${instance.selectedForSuppress}" default="${%instance.selectedForSuppress}" />
+  	   <label><strong>Clean Old Build Generated Files</strong></label>
+  	  </f:entry>
+
       <f:entry title="Tests" help="/plugin/dtkit/help-tests.html">
         <f:hetero-list name="tests" descriptors="${descriptor.listTestDescriptors}" items="${instance.tests}" />
       </f:entry>

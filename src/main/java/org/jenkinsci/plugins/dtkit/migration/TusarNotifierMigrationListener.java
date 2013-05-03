@@ -48,7 +48,8 @@ public class TusarNotifierMigrationListener extends ItemListener {
                                     tusarNotifier.getCoverages(),
                                     tusarNotifier.getViolations(),
                                     tusarNotifier.getMeasures(),
-                                    ""
+                                    "",
+                                    tusarNotifier.isSelectedForSuppress()
                                     );
 
                             DescribableList<Builder, Descriptor<Builder>> newBuilders

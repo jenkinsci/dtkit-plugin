@@ -53,14 +53,19 @@ public class TusarNotifier extends Notifier {
     private transient ViolationsType[] violations;
     private transient MeasureType[] measures;
 
+    private transient boolean selectedForSuppress;
+
     public TusarNotifier(TestType[] tests,
                          CoverageType[] coverages,
                          ViolationsType[] violations,
-                         MeasureType[] measures) {
+                         MeasureType[] measures,
+                         boolean selectForSuppress) {
         this.tests = tests;
         this.coverages = coverages;
         this.violations = violations;
         this.measures = measures;
+
+        this.selectedForSuppress = selectForSuppress;
     }
 
     @SuppressWarnings("unused")
