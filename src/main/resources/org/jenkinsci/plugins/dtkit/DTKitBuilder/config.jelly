@@ -7,7 +7,7 @@
 
   	  <f:entry title="" help="/plugin/dtkit/help-del-old-build-files.html">
   	   <f:checkbox name="selectedForSuppress" field="selectedForSuppress" checked="${instance.selectedForSuppress}" default="${%instance.selectedForSuppress}" />
-  	   <label><strong>Clean Old Build Generated Files</strong></label>
+  	   <label><strong>Delete old generated files</strong></label>
   	  </f:entry>
 
       <f:entry title="Tests" help="/plugin/dtkit/help-tests.html">
