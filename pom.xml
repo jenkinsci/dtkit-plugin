@@ -8,7 +8,7 @@
     </parent>
 
     <artifactId>dtkit</artifactId>
-    <version>1.14-SNAPSHOT</version>
+    <version>1.14</version>
     <packaging>hpi</packaging>
     <name>DTKit Jenkins Plugin</name>
     <url>http://wiki.jenkins-ci.org/display/JENKINS/DTKit+Plugin</url>
@@ -151,7 +151,8 @@
     <scm>
         <connection>scm:git:git://github.com/jenkinsci/dtkit-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:jenkinsci/dtkit-plugin.git</developerConnection>
-    </scm>
+      <tag>dtkit-1.14</tag>
+  </scm>
 
     <build>
         <plugins>
