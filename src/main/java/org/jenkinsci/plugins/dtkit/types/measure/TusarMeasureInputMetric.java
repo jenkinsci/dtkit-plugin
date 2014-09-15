@@ -1,10 +1,10 @@
 package org.jenkinsci.plugins.dtkit.types.measure;
 
-import com.thalesgroup.dtkit.metrics.model.InputMetricOther;
-import com.thalesgroup.dtkit.metrics.model.InputType;
-import com.thalesgroup.dtkit.util.converter.ConversionException;
-import com.thalesgroup.dtkit.util.validator.ValidationError;
-import com.thalesgroup.dtkit.util.validator.ValidationException;
+import org.jenkinsci.lib.dtkit.model.InputMetricOther;
+import org.jenkinsci.lib.dtkit.model.InputType;
+import org.jenkinsci.lib.dtkit.util.converter.ConversionException;
+import org.jenkinsci.lib.dtkit.util.validator.ValidationError;
+import org.jenkinsci.lib.dtkit.util.validator.ValidationException;
 import org.apache.commons.io.FileUtils;
 import org.jenkinsci.plugins.dtkit.service.DTKitBuilderFormatValidation;
 
@@ -42,7 +42,7 @@ public class TusarMeasureInputMetric extends InputMetricOther {
      * @param inputFile the input file to convert
      * @param outFile   the output file to convert
      * @param params    the xsl parameters
-     * @throws com.thalesgroup.dtkit.util.converter.ConversionException
+     * @throws org.jenkinsci.lib.dtkit.util.converter.ConversionException
      *          an application Exception to throw when there is an error of conversion
      *          The exception is catched by the API client (as Hudson plugin)
      */

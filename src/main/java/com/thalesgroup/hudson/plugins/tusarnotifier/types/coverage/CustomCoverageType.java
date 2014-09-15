@@ -22,8 +22,8 @@
 
 package com.thalesgroup.hudson.plugins.tusarnotifier.types.coverage;
 
-import com.thalesgroup.dtkit.metrics.hudson.api.descriptor.CoverageTypeDescriptor;
-import com.thalesgroup.dtkit.metrics.hudson.api.type.CoverageType;
+import org.jenkinsci.lib.dtkit.descriptor.CoverageTypeDescriptor;
+import org.jenkinsci.lib.dtkit.type.CoverageType;
 import com.thalesgroup.hudson.plugins.tusarnotifier.types.CustomType;
 import org.kohsuke.stapler.DataBoundConstructor;
 

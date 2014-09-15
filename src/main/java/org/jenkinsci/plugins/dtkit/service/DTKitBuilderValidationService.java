@@ -1,9 +1,9 @@
 package org.jenkinsci.plugins.dtkit.service;
 
 import com.google.inject.Inject;
-import com.thalesgroup.dtkit.metrics.model.InputMetric;
-import com.thalesgroup.dtkit.util.validator.ValidationError;
-import com.thalesgroup.dtkit.util.validator.ValidationException;
+import org.jenkinsci.lib.dtkit.model.InputMetric;
+import org.jenkinsci.lib.dtkit.util.validator.ValidationError;
+import org.jenkinsci.lib.dtkit.util.validator.ValidationException;
 import org.jenkinsci.plugins.dtkit.exception.DTKitBuilderException;
 import org.jenkinsci.plugins.dtkit.transformer.DTKitBuilderToolInfo;
 

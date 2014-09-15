@@ -1,7 +1,7 @@
 package org.jenkinsci.plugins.dtkit.service;
 
 import com.google.inject.Inject;
-import com.thalesgroup.dtkit.metrics.hudson.api.type.MetricsType;
+import org.jenkinsci.lib.dtkit.type.MetricsType;
 import hudson.Util;
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.types.FileSet;

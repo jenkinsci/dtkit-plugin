@@ -1,9 +1,9 @@
 package org.jenkinsci.plugins.dtkit.service;
 
 import com.google.inject.Inject;
-import com.thalesgroup.dtkit.metrics.hudson.api.type.MetricsType;
-import com.thalesgroup.dtkit.metrics.model.InputMetric;
-import com.thalesgroup.dtkit.util.converter.ConversionException;
+import org.jenkinsci.lib.dtkit.type.MetricsType;
+import org.jenkinsci.lib.dtkit.model.InputMetric;
+import org.jenkinsci.lib.dtkit.util.converter.ConversionException;
 import org.jenkinsci.plugins.dtkit.exception.DTKitBuilderException;
 import org.jenkinsci.plugins.dtkit.transformer.DTKitBuilderToolInfo;
 import org.jenkinsci.plugins.dtkit.types.CustomInputMetric;

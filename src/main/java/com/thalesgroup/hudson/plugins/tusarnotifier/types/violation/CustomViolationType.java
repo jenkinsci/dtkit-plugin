@@ -22,8 +22,8 @@
 
 package com.thalesgroup.hudson.plugins.tusarnotifier.types.violation;
 
-import com.thalesgroup.dtkit.metrics.hudson.api.descriptor.ViolationsTypeDescriptor;
-import com.thalesgroup.dtkit.metrics.hudson.api.type.ViolationsType;
+import org.jenkinsci.lib.dtkit.descriptor.ViolationsTypeDescriptor;
+import org.jenkinsci.lib.dtkit.type.ViolationsType;
 import com.thalesgroup.hudson.plugins.tusarnotifier.types.CustomType;
 import org.kohsuke.stapler.DataBoundConstructor;
 

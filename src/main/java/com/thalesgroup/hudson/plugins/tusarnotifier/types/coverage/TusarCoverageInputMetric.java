@@ -22,9 +22,9 @@
 
 package com.thalesgroup.hudson.plugins.tusarnotifier.types.coverage;
 
-import com.thalesgroup.dtkit.metrics.model.InputMetricOther;
-import com.thalesgroup.dtkit.util.converter.ConversionException;
-import com.thalesgroup.dtkit.util.validator.ValidationException;
+import org.jenkinsci.lib.dtkit.model.InputMetricOther;
+import org.jenkinsci.lib.dtkit.util.converter.ConversionException;
+import org.jenkinsci.lib.dtkit.util.validator.ValidationException;
 
 import java.io.File;
 import java.util.Map;
