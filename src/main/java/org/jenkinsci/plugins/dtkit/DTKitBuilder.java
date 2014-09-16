@@ -37,15 +37,15 @@ import org.kohsuke.stapler.StaplerRequest;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Singleton;
-import com.thalesgroup.dtkit.metrics.hudson.api.descriptor.CoverageTypeDescriptor;
-import com.thalesgroup.dtkit.metrics.hudson.api.descriptor.MeasureTypeDescriptor;
-import com.thalesgroup.dtkit.metrics.hudson.api.descriptor.TestTypeDescriptor;
-import com.thalesgroup.dtkit.metrics.hudson.api.descriptor.ViolationsTypeDescriptor;
-import com.thalesgroup.dtkit.metrics.hudson.api.type.CoverageType;
-import com.thalesgroup.dtkit.metrics.hudson.api.type.MeasureType;
-import com.thalesgroup.dtkit.metrics.hudson.api.type.MetricsType;
-import com.thalesgroup.dtkit.metrics.hudson.api.type.TestType;
-import com.thalesgroup.dtkit.metrics.hudson.api.type.ViolationsType;
+import org.jenkinsci.lib.dtkit.descriptor.CoverageTypeDescriptor;
+import org.jenkinsci.lib.dtkit.descriptor.MeasureTypeDescriptor;
+import org.jenkinsci.lib.dtkit.descriptor.TestTypeDescriptor;
+import org.jenkinsci.lib.dtkit.descriptor.ViolationsTypeDescriptor;
+import org.jenkinsci.lib.dtkit.type.CoverageType;
+import org.jenkinsci.lib.dtkit.type.MeasureType;
+import org.jenkinsci.lib.dtkit.type.MetricsType;
+import org.jenkinsci.lib.dtkit.type.TestType;
+import org.jenkinsci.lib.dtkit.type.ViolationsType;
 
 /**
  * @author Gregory Boissinot

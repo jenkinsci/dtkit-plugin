@@ -1,8 +1,8 @@
 package org.jenkinsci.plugins.dtkit.service;
 
-import com.thalesgroup.dtkit.metrics.model.OutputMetric;
+import org.jenkinsci.lib.dtkit.model.OutputMetric;
 import com.thalesgroup.dtkit.tusar.model.TusarModel;
-import com.thalesgroup.dtkit.util.validator.ValidationError;
+import org.jenkinsci.lib.dtkit.util.validator.ValidationError;
 
 import java.io.File;
 import java.io.Serializable;

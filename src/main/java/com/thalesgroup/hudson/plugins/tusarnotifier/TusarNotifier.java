@@ -22,14 +22,14 @@
 
 package com.thalesgroup.hudson.plugins.tusarnotifier;
 
-import com.thalesgroup.dtkit.metrics.hudson.api.descriptor.CoverageTypeDescriptor;
-import com.thalesgroup.dtkit.metrics.hudson.api.descriptor.MeasureTypeDescriptor;
-import com.thalesgroup.dtkit.metrics.hudson.api.descriptor.TestTypeDescriptor;
-import com.thalesgroup.dtkit.metrics.hudson.api.descriptor.ViolationsTypeDescriptor;
-import com.thalesgroup.dtkit.metrics.hudson.api.type.CoverageType;
-import com.thalesgroup.dtkit.metrics.hudson.api.type.MeasureType;
-import com.thalesgroup.dtkit.metrics.hudson.api.type.TestType;
-import com.thalesgroup.dtkit.metrics.hudson.api.type.ViolationsType;
+import org.jenkinsci.lib.dtkit.descriptor.CoverageTypeDescriptor;
+import org.jenkinsci.lib.dtkit.descriptor.MeasureTypeDescriptor;
+import org.jenkinsci.lib.dtkit.descriptor.TestTypeDescriptor;
+import org.jenkinsci.lib.dtkit.descriptor.ViolationsTypeDescriptor;
+import org.jenkinsci.lib.dtkit.type.CoverageType;
+import org.jenkinsci.lib.dtkit.type.MeasureType;
+import org.jenkinsci.lib.dtkit.type.TestType;
+import org.jenkinsci.lib.dtkit.type.ViolationsType;
 import hudson.DescriptorExtensionList;
 import hudson.Extension;
 import hudson.model.AbstractProject;

@@ -22,8 +22,8 @@
 
 package com.thalesgroup.hudson.plugins.tusarnotifier.types.measure;
 
-import com.thalesgroup.dtkit.metrics.hudson.api.descriptor.MeasureTypeDescriptor;
-import com.thalesgroup.dtkit.metrics.hudson.api.type.MeasureType;
+import org.jenkinsci.lib.dtkit.descriptor.MeasureTypeDescriptor;
+import org.jenkinsci.lib.dtkit.type.MeasureType;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 @SuppressWarnings("unused")

@@ -1,9 +1,9 @@
 package org.jenkinsci.plugins.dtkit.types.coverage;
 
 
-import com.thalesgroup.dtkit.metrics.model.InputMetricXSL;
-import com.thalesgroup.dtkit.metrics.model.InputType;
-import com.thalesgroup.dtkit.metrics.model.OutputMetric;
+import org.jenkinsci.lib.dtkit.model.InputMetricXSL;
+import org.jenkinsci.lib.dtkit.model.InputType;
+import org.jenkinsci.lib.dtkit.model.OutputMetric;
 import org.jenkinsci.plugins.dtkit.types.CustomInputMetric;
 
 import java.io.File;

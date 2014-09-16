@@ -23,7 +23,7 @@
 package com.thalesgroup.hudson.plugins.tusarnotifier.types.coverage;
 
 
-import com.thalesgroup.dtkit.metrics.model.InputMetricXSL;
+import org.jenkinsci.lib.dtkit.model.InputMetricXSL;
 import com.thalesgroup.hudson.plugins.tusarnotifier.types.CustomInputMetric;
 
 import java.io.File;

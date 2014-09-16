@@ -1,10 +1,10 @@
 package org.jenkinsci.plugins.dtkit.types.test;
 
-import com.thalesgroup.dtkit.metrics.hudson.api.descriptor.TestTypeDescriptor;
-import com.thalesgroup.dtkit.metrics.hudson.api.type.TestType;
-import com.thalesgroup.dtkit.metrics.model.InputMetric;
-import com.thalesgroup.dtkit.metrics.model.InputMetricException;
-import com.thalesgroup.dtkit.metrics.model.InputMetricFactory;
+import org.jenkinsci.lib.dtkit.descriptor.TestTypeDescriptor;
+import org.jenkinsci.lib.dtkit.type.TestType;
+import org.jenkinsci.lib.dtkit.model.InputMetric;
+import org.jenkinsci.lib.dtkit.model.InputMetricException;
+import org.jenkinsci.lib.dtkit.model.InputMetricFactory;
 import hudson.Extension;
 import org.kohsuke.stapler.DataBoundConstructor;
 

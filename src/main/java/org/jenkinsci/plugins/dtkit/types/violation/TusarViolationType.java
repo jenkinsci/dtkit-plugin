@@ -1,10 +1,10 @@
 package org.jenkinsci.plugins.dtkit.types.violation;
 
-import com.thalesgroup.dtkit.metrics.hudson.api.descriptor.ViolationsTypeDescriptor;
-import com.thalesgroup.dtkit.metrics.hudson.api.type.ViolationsType;
-import com.thalesgroup.dtkit.metrics.model.InputMetric;
-import com.thalesgroup.dtkit.metrics.model.InputMetricException;
-import com.thalesgroup.dtkit.metrics.model.InputMetricFactory;
+import org.jenkinsci.lib.dtkit.descriptor.ViolationsTypeDescriptor;
+import org.jenkinsci.lib.dtkit.type.ViolationsType;
+import org.jenkinsci.lib.dtkit.model.InputMetric;
+import org.jenkinsci.lib.dtkit.model.InputMetricException;
+import org.jenkinsci.lib.dtkit.model.InputMetricFactory;
 import hudson.Extension;
 import org.kohsuke.stapler.DataBoundConstructor;
 

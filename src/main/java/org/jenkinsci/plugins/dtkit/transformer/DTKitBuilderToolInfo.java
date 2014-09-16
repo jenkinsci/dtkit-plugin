@@ -1,7 +1,7 @@
 package org.jenkinsci.plugins.dtkit.transformer;
 
-import com.thalesgroup.dtkit.metrics.hudson.api.type.*;
-import com.thalesgroup.dtkit.metrics.model.InputMetric;
+import org.jenkinsci.lib.dtkit.type.*;
+import org.jenkinsci.lib.dtkit.model.InputMetric;
 
 import java.io.File;
 import java.io.Serializable;

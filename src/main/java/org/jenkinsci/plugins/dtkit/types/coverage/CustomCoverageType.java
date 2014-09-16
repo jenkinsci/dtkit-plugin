@@ -1,10 +1,10 @@
 package org.jenkinsci.plugins.dtkit.types.coverage;
 
-import com.thalesgroup.dtkit.metrics.hudson.api.descriptor.CoverageTypeDescriptor;
-import com.thalesgroup.dtkit.metrics.hudson.api.type.CoverageType;
-import com.thalesgroup.dtkit.metrics.model.InputMetric;
-import com.thalesgroup.dtkit.metrics.model.InputMetricException;
-import com.thalesgroup.dtkit.metrics.model.InputMetricFactory;
+import org.jenkinsci.lib.dtkit.descriptor.CoverageTypeDescriptor;
+import org.jenkinsci.lib.dtkit.type.CoverageType;
+import org.jenkinsci.lib.dtkit.model.InputMetric;
+import org.jenkinsci.lib.dtkit.model.InputMetricException;
+import org.jenkinsci.lib.dtkit.model.InputMetricFactory;
 import hudson.Extension;
 import org.jenkinsci.plugins.dtkit.types.CustomType;
 import org.kohsuke.stapler.DataBoundConstructor;

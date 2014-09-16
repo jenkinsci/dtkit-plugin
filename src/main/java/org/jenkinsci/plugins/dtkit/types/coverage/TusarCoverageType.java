@@ -2,10 +2,10 @@ package org.jenkinsci.plugins.dtkit.types.coverage;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
-import com.thalesgroup.dtkit.metrics.hudson.api.descriptor.CoverageTypeDescriptor;
-import com.thalesgroup.dtkit.metrics.hudson.api.type.CoverageType;
-import com.thalesgroup.dtkit.metrics.model.InputMetric;
-import com.thalesgroup.dtkit.util.validator.ValidationService;
+import org.jenkinsci.lib.dtkit.descriptor.CoverageTypeDescriptor;
+import org.jenkinsci.lib.dtkit.type.CoverageType;
+import org.jenkinsci.lib.dtkit.model.InputMetric;
+import org.jenkinsci.lib.dtkit.util.validator.ValidationService;
 import hudson.Extension;
 import org.kohsuke.stapler.DataBoundConstructor;
 
