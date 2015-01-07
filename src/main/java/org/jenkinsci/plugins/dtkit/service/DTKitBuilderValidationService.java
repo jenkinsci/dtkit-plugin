@@ -2,6 +2,7 @@ package org.jenkinsci.plugins.dtkit.service;
 
 import com.google.inject.Inject;
 import org.jenkinsci.lib.dtkit.model.InputMetric;
+import org.jenkinsci.lib.dtkit.util.validator.ErrorType;
 import org.jenkinsci.lib.dtkit.util.validator.ValidationError;
 import org.jenkinsci.lib.dtkit.util.validator.ValidationException;
 import org.jenkinsci.plugins.dtkit.exception.DTKitBuilderException;
@@ -47,21 +48,30 @@ public class DTKitBuilderValidationService implements Serializable {
     public boolean validateInputFile(DTKitBuilderToolInfo dTKitBuilderToolInfo, File inputFile) throws DTKitBuilderException {
 
         InputMetric inputMetric = dTKitBuilderToolInfo.getInputMetric();
-
+        boolean isValidInput = true;
         //Validate the input file (nom empty)
         try {
             if (!inputMetric.validateInputFile(inputFile)) {
                 log.warning("The file '" + inputFile + "' is an invalid file.");
-                for (ValidationError validatorError : inputMetric.getInputValidationErrors()) {
-                    log.warning(validatorError.toString());
-                }
-
-                return false;
+                isValidInput= false;
+            }
+            //AM : display warnings all the time if the error list is not empty
+            for (ValidationError validatorError : inputMetric.getInputValidationErrors()) {
+            	switch (validatorError.getType()){
+            	case FATAL_ERROR:
+            	case ERROR:
+            		log.error(validatorError.toString());
+            		break;
+            	case WARNING:
+            	default:
+                	log.warning(validatorError.toString());
+                	break;
+            	}
             }
         } catch (ValidationException ve) {
             throw new DTKitBuilderException("Validation error on input", ve);
         }
-        return true;
+        return isValidInput;
     }
 
 

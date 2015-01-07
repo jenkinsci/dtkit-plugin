@@ -70,7 +70,6 @@ public class DTKitBuilderConversionService implements Serializable {
         final String TUSAR_FILE_POSTFIX = ".xml";
         final String TUSAR_FILE_PREFIX = "TUSAR-";
         File junitTargetFile = new File(outputDirectory, TUSAR_FILE_PREFIX + inputFile.hashCode() + TUSAR_FILE_POSTFIX);
-        log.info("Converting '" + inputFile + "' .");
 
         try {
             //Set the XSL for custom type
