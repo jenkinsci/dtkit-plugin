@@ -65,7 +65,7 @@ public class DTKitBuilderTransformer implements FilePath.FileCallable<Boolean>, 
                     dtkitBuilderLog.warning(msg);
                     return false;
                 }
-
+                dtkitBuilderLog.info("Converting '" + curFile + "' .");
                 if (!dtkitBuilderValidationService.validateInputFile(dtkitBuilderToolInfo, curFile)) {
                     dtkitBuilderLog.warning("The file '" + curFile + "' has been ignored.");
                     return false;
