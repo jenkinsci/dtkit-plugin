@@ -181,10 +181,10 @@ public class DTKitBuilder extends Builder {
 		try {
 			//Because of old jobs configuration, we have to check that those values are not null
 			String rootFolder = this.rootFolder == null?(DEFAULT_ROOT_PATH):this.rootFolder;
-			String generatedTests = this.generatedTests == null?(DEFAULT_ROOT_PATH+DEFAULT_TEST_PATH):this.generatedTests;
-			String generatedCoverage = this.generatedCoverage == null?(DEFAULT_ROOT_PATH+DEFAULT_COVERAGE_PATH):this.generatedCoverage;
-			String generatedMeasures = this.generatedMeasures == null?(DEFAULT_ROOT_PATH+DEFAULT_MEASURES_PATH):this.generatedMeasures;
-			String generatedViolations = this.generatedViolations == null?(DEFAULT_ROOT_PATH+DEFAULT_VIOLATIONS_PATH):this.generatedViolations;
+			String generatedTests = this.generatedTests == null?(rootFolder+DEFAULT_TEST_PATH):this.generatedTests;
+			String generatedCoverage = this.generatedCoverage == null?(rootFolder+DEFAULT_COVERAGE_PATH):this.generatedCoverage;
+			String generatedMeasures = this.generatedMeasures == null?(rootFolder+DEFAULT_MEASURES_PATH):this.generatedMeasures;
+			String generatedViolations = this.generatedViolations == null?(rootFolder+DEFAULT_VIOLATIONS_PATH):this.generatedViolations;
 
 			final StringBuffer sb = new StringBuffer();
 
