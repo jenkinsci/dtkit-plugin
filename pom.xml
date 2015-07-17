@@ -19,7 +19,7 @@
         <maven.compiler.target>1.6</maven.compiler.target>
         <guice.version>2.0.1</guice.version>
         <dtkit.frmk.version>2.0.0</dtkit.frmk.version>
-        <dtkit.default.tusar.version>1.0.2</dtkit.default.tusar.version>
+        <dtkit.default.tusar.version>1.0.3</dtkit.default.tusar.version>
         <dtkit.tusar.model.version>1.0.0</dtkit.tusar.model.version>
         <junit.version>4.8.2</junit.version>
     </properties>
