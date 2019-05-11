@@ -1,0 +1,132 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.jenkins-ci.plugins</groupId>
+        <artifactId>plugin</artifactId>
+        <version>3.43</version>
+    </parent>
+
+    <artifactId>dtkit-plugin</artifactId>
+    <version>2.1.4-SNAPSHOT</version>
+    <packaging>hpi</packaging>
+    <name>DTKit Jenkins Plugin</name>
+    <url>http://wiki.jenkins-ci.org/display/JENKINS/DTKit+Plugin</url>
+
+    <licenses>
+        <license>
+            <name>MIT license</name>
+            <comments>All source code is under the MIT license.</comments>
+        </license>
+    </licenses>
+
+   <developers>
+        <developer>
+            <id>gboissinot</id>
+            <name>Gregory Boissinot</name>
+            <email>gregory.boissinot@gmail.com</email>
+            <timezone>+1</timezone>
+            <roles>
+                <role>Project owner</role>
+                <role>Project developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>nfalco79</id>
+            <name>Nikolas Falco</name>
+            <email>nfalco79@hotmail.com</email>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
+
+    <repositories>
+        <repository>
+            <id>repo.jenkins-ci.org</id>
+            <url>http://repo.jenkins-ci.org/public/</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>repo.jenkins-ci.org</id>
+            <url>http://repo.jenkins-ci.org/public/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <scm>
+        <connection>scm:git:git://github.com/jenkinsci/dtkit-plugin.git</connection>
+        <developerConnection>scm:git:git@github.com:jenkinsci/dtkit-plugin.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <properties>
+        <java.level>8</java.level>
+        <spotbugs.skip>true</spotbugs.skip>
+
+        <dtkit-api.version>2.0.1-SNAPSHOT</dtkit-api.version>
+        <guice.version>4.2.2</guice.version>
+        <dtkit.default.tusar.version>1.0.4</dtkit.default.tusar.version>
+        <dtkit.tusar.model.version>1.0.0</dtkit.tusar.model.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>${guice.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.thalesgroup.dtkit</groupId>
+            <artifactId>dtkit-tusar-model</artifactId>
+            <version>${dtkit.tusar.model.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jenkins-ci.lib.dtkit</groupId>
+            <artifactId>dtkit-default-tusar-jenkins</artifactId>
+            <version>${dtkit.default.tusar.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.xml.bind</groupId>
+                    <artifactId>jaxb-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.xml.bind</groupId>
+                    <artifactId>jaxb-impl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.thalesgroup.dtkit</groupId>
+                    <artifactId>dtkit-processor</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.jenkins-ci.plugins</groupId>
+            <artifactId>dtkit2-api-plugin</artifactId>
+            <version>${dtkit-api.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jenkins-ci.lib.dtkit</groupId>
+                <artifactId>dtkit-metrics-model</artifactId>
+                <version>${dtkit-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jenkins-ci.lib.dtkit</groupId>
+                <artifactId>dtkit-metrics-util</artifactId>
+                <version>${dtkit-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jenkins-ci.lib.dtkit</groupId>
+                <artifactId>dtkit-metrics-hudson-api</artifactId>
+                <version>${dtkit-api.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
