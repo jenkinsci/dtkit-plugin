@@ -6,14 +6,14 @@
         <version>3.43</version>
     </parent>
     <artifactId>dtkit-api</artifactId>
-    <version>2.0.1-SNAPSHOT</version>
+    <version>2.1.1-SNAPSHOT</version>
     <packaging>hpi</packaging>
     <name>This plugin exposes the DTKit 2 APIs to other Jenkins plugins.</name>
     <url>http://wiki.jenkins-ci.org/display/JENKINS/DTKit+API+Plugin</url>
 
     <properties>
         <java.level>8</java.level>
-        <dtkit-frmk.version>2.0.1-SNAPSHOT</dtkit-frmk.version>
+        <dtkit-frmk.version>2.1.1</dtkit-frmk.version>
         <!-- jenkins version defined as provided in dtkit-metrics-hudson-api -->
         <jenkins.version>2.138.4</jenkins.version>
     </properties>
@@ -42,7 +42,7 @@
         <dependency>
             <groupId>org.jenkins-ci.lib.dtkit</groupId>
             <artifactId>dtkit-metrics-hudson-api</artifactId>
-            <version>${project.version}</version>
+            <version>${dtkit-frmk.version}</version>
         </dependency>
     </dependencies>
 
