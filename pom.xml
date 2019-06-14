@@ -9,7 +9,7 @@
     <version>2.1.2-SNAPSHOT</version>
     <packaging>hpi</packaging>
     <name>This plugin exposes the DTKit 2 APIs to other Jenkins plugins.</name>
-    <url>http://wiki.jenkins-ci.org/display/JENKINS/DTKit+API+Plugin</url>
+    <url>http://wiki.jenkins-ci.org/display/JENKINS/DTKit</url>
 
     <properties>
         <java.level>8</java.level>
