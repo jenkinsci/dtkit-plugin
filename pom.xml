@@ -14,7 +14,7 @@
 
     <properties>
         <java.level>8</java.level>
-        <dtkit-frmk.version>2.1.1</dtkit-frmk.version>
+        <dtkit-frmk.version>2.1.2</dtkit-frmk.version>
         <!-- jenkins version defined as provided in dtkit-metrics-hudson-api -->
         <jenkins.version>2.138.4</jenkins.version>
     </properties>
