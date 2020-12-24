@@ -3,10 +3,10 @@
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>4.7</version>
+        <version>4.15</version>
     </parent>
     <artifactId>dtkit-api</artifactId>
-    <version>2.2.2-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
     <packaging>hpi</packaging>
     <name>DTKit 2 API.</name>
     <description>This plugin exposes the DTKit 2 APIs to other Jenkins plugins.</description>
@@ -14,8 +14,7 @@
 
     <properties>
         <java.level>8</java.level>
-        <dtkit-frmk.version>2.2.0</dtkit-frmk.version>
-        <!-- jenkins version defined as provided in dtkit-metrics-hudson-api -->
+        <dtkit-frmk.version>3.0.0</dtkit-frmk.version>
         <jenkins.version>2.204.6</jenkins.version>
     </properties>
 
@@ -39,10 +38,22 @@
         <tag>HEAD</tag>
     </scm>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.jenkins.tools.bom</groupId>
+                <artifactId>bom-2.204.x</artifactId>
+                <version>18</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>org.jenkins-ci.lib.dtkit</groupId>
-            <artifactId>dtkit-metrics-hudson-api</artifactId>
+            <artifactId>dtkit-metrics-model</artifactId>
             <version>${dtkit-frmk.version}</version>
         </dependency>
     </dependencies>

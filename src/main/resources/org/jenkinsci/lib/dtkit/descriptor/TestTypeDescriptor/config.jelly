@@ -28,6 +28,10 @@ THE SOFTWARE.
         <f:textbox />
     </f:entry>
 
+    <f:entry field="excludesPattern" title="${%excludesPattern}" description="See &lt;a href='${rootURL}/env-vars.html' target=_new>the list of available jenkins variables&lt;/a> as token replacement for this field">
+        <f:textbox />
+    </f:entry>
+
     <j:if test="${descriptor.isCustomType()}">
         <f:entry field="customXSL" title="${%customXSL}" description="See &lt;a href='${rootURL}/env-vars.html' target=_new>the list of available jenkins variables&lt;/a> as token replacement for this field">
             <f:textbox />
