@@ -15,7 +15,7 @@
     <properties>
         <java.level>8</java.level>
         <dtkit-frmk.version>3.0.0</dtkit-frmk.version>
-        <jenkins.version>2.263.1</jenkins.version>
+        <jenkins.version>2.204.6</jenkins.version>
     </properties>
 
     <repositories>
@@ -42,8 +42,8 @@
         <dependencies>
             <dependency>
                 <groupId>io.jenkins.tools.bom</groupId>
-                <artifactId>bom-2.263.x</artifactId>
-                <version>984.vb5eaac999a7e</version>
+                <artifactId>bom-2.204.x</artifactId>
+                <version>18</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -59,7 +59,7 @@
         <dependency>
             <groupId>io.jenkins.plugins</groupId>
             <artifactId>jaxb</artifactId>
-            <version>2.3.6-1</version>
+            <version>2.3.0.1</version>
         </dependency>
     </dependencies>
 
