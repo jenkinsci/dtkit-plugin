@@ -6,7 +6,7 @@
         <version>4.47</version>
     </parent>
     <artifactId>dtkit-api</artifactId>
-    <version>3.0.2</version>
+    <version>3.0.3-SNAPSHOT</version>
     <packaging>hpi</packaging>
     <name>DTKit 2 API.</name>
     <description>This plugin exposes the DTKit 2 APIs to other Jenkins plugins.</description>
