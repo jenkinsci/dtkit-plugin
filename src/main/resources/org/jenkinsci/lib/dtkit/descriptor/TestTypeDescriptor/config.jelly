@@ -38,28 +38,17 @@ THE SOFTWARE.
         </f:entry>
     </j:if>
 
-    <tr>
-        <td colspan="3">
-            <f:checkbox class="block-control" field="skipNoTestFiles" title="${%skipNoTestFiles}" />
-        </td>
-    </tr>
-
-    <tr>
-        <td colspan="3">
-            <f:checkbox class="block-control" field="failIfNotNew" default="true" title="${%failIfNotNew}" />
-        </td>
-    </tr>
-
-    <tr>
-        <td colspan="3">
-            <f:checkbox class="block-control" field="deleteOutputFiles" default="true" title="${%deleteOutputFiles}" />
-        </td>
-    </tr>
-
-    <tr>
-        <td colspan="3">
-            <f:checkbox class="block-control" field="stopProcessingIfError" default="true" title="${%stopProcessingIfError}" />
-        </td>
-    </tr>
+    <f:entry field="skipNoTestFiles" title="${%skipNoTestFiles}">
+        <f:checkbox />
+    </f:entry>
+    <f:entry field="failIfNotNew" title="${%failIfNotNew}">
+        <f:checkbox default="true" />
+    </f:entry>
+    <f:entry field="deleteOutputFiles" title="${%deleteOutputFiles}">
+        <f:checkbox default="true" />
+    </f:entry>
+    <f:entry field="stopProcessingIfError" title="${%stopProcessingIfError}">
+        <f:checkbox default="true" />
+    </f:entry>
 
 </j:jelly>
