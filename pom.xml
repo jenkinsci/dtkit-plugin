@@ -3,7 +3,8 @@
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>4.47</version>
+        <version>4.51</version>
+        <relativePath/>
     </parent>
     <artifactId>dtkit-api</artifactId>
     <version>3.0.3-SNAPSHOT</version>
@@ -13,10 +14,20 @@
     <url>https://github.com/jenkinsci/dtkit-plugin</url>
 
     <properties>
-        <java.level>8</java.level>
         <dtkit-frmk.version>3.0.0</dtkit-frmk.version>
-        <jenkins.version>2.319.1</jenkins.version>
+        <jenkins.version>2.346.3</jenkins.version>
     </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.jenkins.tools.bom</groupId>
+                <artifactId>bom-2.346.x</artifactId>
+                <version>1763.v092b_8980a_f5e</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <repositories>
         <repository>
@@ -37,18 +48,6 @@
         <developerConnection>scm:git:git@github.com:jenkinsci/dtkit-plugin.git</developerConnection>
         <tag>dtkit-api-3.0.2</tag>
     </scm>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>io.jenkins.tools.bom</groupId>
-                <artifactId>bom-2.319.x</artifactId>
-                <version>1595.v8c71c13cc3a_9</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>
