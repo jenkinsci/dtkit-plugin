@@ -4,6 +4,7 @@
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
         <version>4.88</version>
+        <relativePath />
     </parent>
     <artifactId>dtkit-api</artifactId>
     <version>3.0.4-SNAPSHOT</version>
@@ -14,11 +15,11 @@
 
     <properties>
         <dtkit-frmk.version>3.0.0</dtkit-frmk.version>
-        <jenkins.baseline>2.452</jenkins.baseline>
-        <jenkins.version>${jenkins.baseline}.1</jenkins.version>
+        <!-- https://www.jenkins.io/doc/developer/plugin-development/choosing-jenkins-baseline/ -->
+        <jenkins.baseline>2.462</jenkins.baseline>
+        <jenkins.version>${jenkins.baseline}.3</jenkins.version>
         <revision>3.1.6</revision>
         <changelist>-SNAPSHOT</changelist>
-        <jenkins.version>2.440.3</jenkins.version>
         <gitHubRepo>jenkinsci/dtkit-plugin</gitHubRepo>
     </properties>
 
@@ -47,7 +48,7 @@
             <dependency>
                 <groupId>io.jenkins.tools.bom</groupId>
                 <artifactId>bom-${jenkins.baseline}.x</artifactId>
-                <version>3790.va_b_a_2d26d2b_69</version>
+                <version>4228.v0a_71308d905b_</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
