@@ -18,24 +18,26 @@
             <comments>All source code is under the MIT license.</comments>
         </license>
     </licenses>
-    <developers>
-      <developer>
-        <id>gboissinot</id>
-        <name>Gregory Boissinot</name>
-        <email>gregory.boissinot@gmail.com</email>
-        <timezone>+1</timezone>
-        <roles>
-          <role>Project owner</role>
-          <role>Project developer</role>
-        </roles>
-      </developer>
-      <developer>
-        <id>nfalco79</id>
-        <name>Nikolas Falco</name>
-        <email>nfalco79@hotmail.com</email>
-        <timezone>+1</timezone>
-      </developer>
+
+   <developers>
+        <developer>
+            <id>gboissinot</id>
+            <name>Gregory Boissinot</name>
+            <email>gregory.boissinot@gmail.com</email>
+            <timezone>+1</timezone>
+            <roles>
+                <role>Project owner</role>
+                <role>Project developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>nfalco79</id>
+            <name>Nikolas Falco</name>
+            <email>nfalco79@hotmail.com</email>
+            <timezone>+1</timezone>
+        </developer>
     </developers>
+
     <repositories>
         <repository>
             <id>repo.jenkins-ci.org</id>
