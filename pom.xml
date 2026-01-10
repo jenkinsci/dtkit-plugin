@@ -21,6 +21,8 @@
         <revision>3.1.6</revision>
         <changelist>-SNAPSHOT</changelist>
         <gitHubRepo>jenkinsci/dtkit-plugin</gitHubRepo>
+        <hpi.bundledArtifacts>Saxon-HE,dtkit-metrics-model,dtkit-metrics-util</hpi.bundledArtifacts>
+        <hpi.strictBundledArtifacts>true</hpi.strictBundledArtifacts>
     </properties>
 
     <repositories>
